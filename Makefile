@@ -46,13 +46,3 @@ run: all clean
 define repeat_char
 $(strip $(if $(firstword $(1)), $(CHAR)$(call repeat_char,$(subst $(firstword $(1)),,$(1)))))
 endef
-
-.PHONY: example1 example2 all clean fclean re run
-
-example1:
-	echo "This is example 1"
-	echo $(REPEATED_CHARS)
-
-example2:
-	echo "This is example 2"
-	echo $(REPEATED_CHARS)
