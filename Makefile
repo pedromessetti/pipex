@@ -30,11 +30,11 @@ $(NAME):	$(OBJS)
 	echo "	$(NAME)"| tr '[:lower:]' '[:upper:]'| tr '[:lower:]' '[:upper:]'
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
-	
+
 all: $(NAME)
 
 clean:
-	rm -f *.O
+	rm -f *.o
 
 fclean: clean
 	rm -f $(NAME)
