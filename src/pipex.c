@@ -1,10 +1,12 @@
 #include "pipex.h"
 
-t_path	*find_path(t_path *path_list, char **envp, char *cmd)
+char	*find_path(char **envp, char *cmd)
 {
 	char	**paths;
 	int		i;
+	t_path	*path_list;
 
+	path_list = NULL;
 	i = -1;
 	while (cmd[++i] != ' ' && cmd[i])
 		;
@@ -13,7 +15,7 @@ t_path	*find_path(t_path *path_list, char **envp, char *cmd)
 	path_list = set_path_list(path_list, paths, cmd);
 	free(paths);
 	if (try_acess(&path_list))
-		return (path_list);
+		return (path_list->path);
 	else
 	{
 		ft_printf("pipex: %s: command not found\n", cmd);

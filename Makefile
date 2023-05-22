@@ -9,7 +9,7 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -I inc
+CFLAGS =  -g -I inc
 
 OTHERFLAG = ./ft_printf/libftprintf.a
 

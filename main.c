@@ -6,36 +6,27 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/22 22:47:03 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/23 00:37:14 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	set_content(t_pipe *pipex, char **av, char **envp)
+{
+	pipex->path1 = find_path(envp, av[2]);
+	pipex->path2 = find_path(envp, av[3]);
+	pipex->cmd1 = av[2];
+	pipex->cmd2 = av[3];
+}
+
 int	main(int ac, char **av, char **envp)
 {
-	int	pid;
-	t_path *path_list;
+	t_pipe	pipex;
 
-	path_list = NULL;
 	check_ac(ac);
-	
-	path_list = find_path(path_list, envp, av[2]);
-	ft_printf("%s\n",path_list->path);
-	free_path(&path_list);
-
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("pipex: process error");
-		exit(1);
-	}
-	if (pid == 0)
-		start_child_process(av);
-	else
-	{
-		//parent process
-		wait(NULL);
-	}
+	check_fd(&pipex, av);
+	set_content(&pipex, av, envp);
+	start_child_process(pipex);
 	return (0);
 }

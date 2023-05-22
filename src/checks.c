@@ -1,10 +1,10 @@
 #include "pipex.h"
 
-void check_ac(int ac)
+void	check_ac(int ac)
 {
 	if (ac == 5)
 		return ;
-	else if(ac < 5)
+	else if (ac < 5)
 	{
 		ft_printf("pipex: too few arguments\n");
 		exit(1);
@@ -12,6 +12,22 @@ void check_ac(int ac)
 	else if (ac > 5)
 	{
 		ft_printf("pipex: too many arguments\n");
+		exit(1);
+	}
+}
+
+void	check_fd(t_pipe *pipex, char **av)
+{
+	pipex->fd1 = open(av[1], O_RDONLY);
+	if (pipex->fd1 == -1)
+	{
+		ft_printf("pipex: %s: Archive not found\n", av[1]);
+		exit(1);
+	}
+	pipex->fd2 = open(av[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (pipex->fd2 == -1)
+	{
+		ft_printf("pipex: Error opening/creating the file");
 		exit(1);
 	}
 }

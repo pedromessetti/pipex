@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/22 23:06:02 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/23 00:49:43 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,17 @@ typedef struct t_path
 	struct t_path	*next;
 }					t_path;
 
-t_path				*find_path(t_path *path_list, char **envp, char *cmd);
+typedef struct t_pipe
+{
+	char			*path1;
+	char			*path2;
+	char			*cmd1;
+	char			*cmd2;
+	int				fd1;
+	int				fd2;
+}					t_pipe;
+
+char				*find_path(char **envp, char *cmd);
 t_path				*find_last(t_path *paths_list);
 void				add_tail(t_path **list_head, t_path *new_path);
 t_path				*add_path(char *path);
@@ -37,8 +47,9 @@ void				free_path(t_path **paths_list);
 void				print_path(t_path **paths_list);
 t_path				*set_path_list(t_path *path_list, char **paths, char *cmd);
 int					try_acess(t_path **path_list);
-void				start_child_process(char **av);
+void				start_child_process(t_pipe pipex);
 void				check_ac(int ac);
+void				check_fd(t_pipe *pipex, char **av);
 char				**handle_path(char **envp);
 
 #endif
