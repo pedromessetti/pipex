@@ -13,7 +13,7 @@ CFLAGS = -Wall -Wextra -Werror -g -I inc
 
 OTHERFLAG = ./ft_printf/libftprintf.a
 
-SRCS = main.c src/ft_utils.c
+SRCS = main.c src/pipex.c src/list_utils.c src/child_process.c src/checks.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -24,14 +24,17 @@ REPEATED_CHARS = $(call repeat_char,$(shell seq $(NUM)))
 all: $(NAME)
 
 $(NAME):	$(OBJS)
-	make -C ./ft_printf/
-	make clean -C ./ft_printf/
-	$(CC) $(CFLAGS) $(OBJS) $(OTHERFLAG) -o $(NAME)
+	if [ ! -f ./ft_printf/libftprintf.a ] && [ ! -f ./libft/libft.a ]; then \
+		make -C ./ft_printf/; \
+		make clean -C ./ft_printf/; \
+		make -C ./libft/; \
+		make clean -C ./libft/; \
+	fi
+	$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
-	echo "$(WHITE)	$(NAME)"| tr '[:lower:]' '[:upper:]'
+	echo "$(WHITE)	$(NAME)" | tr '[:lower:]' '[:upper:]'
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
-
 
 clean:
 	rm -f $(OBJS)
