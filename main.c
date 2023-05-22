@@ -22,22 +22,18 @@ int	main(int ac, char **av, char **envp)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
 			n = 1;
-		}
 		else
-		{
 			n = 6;
-		}
 
 		for (int i = n; i < n + 5; i++)
-			printf("%d ", i);
+			ft_printf("%d ", i);
 		
 		file1_fd = open(av[1], O_RDONLY);
 		//int file2_fd = open(av[4], O_RDONLY);
 		if (file1_fd < 0)
-			printf("%s: Archive not found\n", av[1]);
-		printf("%s\n", envp[1]);
+			ft_printf("%s: Archive not found\n", av[1]);
+		ft_printf("%s\n", envp[1]);
 	}
 	else
 		exit(1);

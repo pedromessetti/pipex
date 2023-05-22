@@ -9,9 +9,11 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g #fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I inc
 
-SRCS = main.c ft_utils.c
+OTHERFLAG = ./ft_printf/libftprintf.a
+
+SRCS = main.c src/ft_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -19,24 +21,28 @@ CHAR = =-=
 NUM = 7
 REPEATED_CHARS = $(call repeat_char,$(shell seq $(NUM)))
 
+all: $(NAME)
+
 $(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L. -o $(NAME)
+	make -C ./ft_printf/
+	make clean -C ./ft_printf/
+	$(CC) $(CFLAGS) $(OBJS) $(OTHERFLAG) -o $(NAME)
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(WHITE)	$(NAME)"| tr '[:lower:]' '[:upper:]'
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
 
-all: $(NAME)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-run: all clean
+run: re
+	$(MAKE) clean
 
 define repeat_char
 $(strip $(if $(firstword $(1)), $(CHAR)$(call repeat_char,$(subst $(firstword $(1)),,$(1)))))
