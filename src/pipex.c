@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 15:05:06 by pmessett          #+#    #+#             */
+/*   Updated: 2023/05/23 15:07:15 by pmessett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 char	*find_path(char **envp, char *cmd)
@@ -8,10 +20,12 @@ char	*find_path(char **envp, char *cmd)
 
 	path_list = NULL;
 	i = -1;
-	while (cmd[++i] != ' ' && cmd[i]);
+	while (cmd[++i] != ' ' && cmd[i])
+		;
 	cmd[i] = '\0';
 	paths = handle_path(envp);
 	path_list = set_path_list(path_list, paths, cmd);
+	print_path(&path_list);
 	free(paths);
 	if (try_acess(&path_list))
 		return (path_list->path);
@@ -64,9 +78,11 @@ char	**handle_path(char **envp)
 	int i = -1;
 	while (envp[++i])
 	{
-		path = ft_strnstr(envp[i], "PATH=/", ft_strlen(envp[i]));
-		if (path)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		{
+			path = envp[i];
 			break ;
+		}
 	}
 	path = ft_substr(path, 5, ft_strlen(path));
 	paths = ft_split(path, ':');

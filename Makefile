@@ -9,11 +9,11 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS =  -g -I inc
+CFLAGS =  -g -I inc #-fsanitize=address
 
 OTHERFLAG = ./ft_printf/libftprintf.a
 
-SRCS = main.c src/pipex.c src/list_utils.c src/child_process.c src/checks.c
+SRCS = src/main.c src/pipex.c src/list_utils.c src/child_process.c src/checks.c
 
 OBJS = $(SRCS:.c=.o)
 
