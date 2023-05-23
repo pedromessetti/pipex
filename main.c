@@ -17,7 +17,7 @@ void	set_content(t_pipe *pipex, char **av, char **envp)
 	pipex->cmd1 = set_command(av[2]);
 	pipex->path1 = find_path(envp, av[2]);
 	pipex->path2 = find_path(envp, av[3]);
-	pipex->cmd2 = av[3];
+	pipex->cmd2 = set_command(av[3]);
 }
 
 char	*set_command(char *av)
