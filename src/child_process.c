@@ -20,25 +20,24 @@ void	start_child_process(t_pipe pipex)
 	}
 	if (pid == 0)
 	{
-		close(pipe_fds[0]);               // Close unused read end of the pipe
-		dup2(pipex.fd1, STDIN_FILENO);    // Redirect stdin to pipex.fd1
-		dup2(pipe_fds[1], STDOUT_FILENO); // Redirect stdout to pipe
+		close(pipe_fds[0]);
+		dup2(pipex.fd1, STDIN_FILENO);
+		dup2(pipe_fds[1], STDOUT_FILENO);
 		close(pipex.fd1);
 		close(pipex.fd2);
 		close(pipe_fds[1]);
-		execv(pipex.path1, pipex.cmd1);
+		char *command[] = {pipex.path1, pipex.cmd1, NULL};
+		execv(pipex.path1, command);
 		ft_printf("pipex: Error executing the command");
 		exit(1);
 	}
 	else
 	{
 		// Parent process
-		close(pipe_fds[1]); // Close unused write end of the pipe
+		close(pipe_fds[1]);
 		// Read from the pipe and write to file2_fd
 		while ((bytesRead = read(pipe_fds[0], buffer, sizeof(buffer))) > 0)
-		{
 			write(pipex.fd2, buffer, bytesRead);
-		}
 		close(pipex.fd1);
 		close(pipex.fd2);
 		close(pipe_fds[0]);

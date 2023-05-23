@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/23 00:49:43 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:46:28 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void				start_child_process(t_pipe pipex);
 void				check_ac(int ac);
 void				check_fd(t_pipe *pipex, char **av);
 char				**handle_path(char **envp);
-
+char				*set_command(char *av);
 #endif

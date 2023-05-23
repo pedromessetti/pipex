@@ -8,8 +8,7 @@ char	*find_path(char **envp, char *cmd)
 
 	path_list = NULL;
 	i = -1;
-	while (cmd[++i] != ' ' && cmd[i])
-		;
+	while (cmd[++i] != ' ' && cmd[i]);
 	cmd[i] = '\0';
 	paths = handle_path(envp);
 	path_list = set_path_list(path_list, paths, cmd);
