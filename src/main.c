@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/24 10:56:15 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/24 14:43:15 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@ void	set_content(t_pipe *pipex, char **av, char **envp)
 
 	cmd1 = ft_split(av[2], ' ');
 	cmd2 = ft_split(av[3], ' ');
-	pipex->cmd1 = cmd1[1];
+	pipex->cmd1 = cmd1;
 	pipex->path1 = find_path(envp, cmd1[0]);
-	pipex->cmd2 = cmd2[1];
+	pipex->cmd2 = cmd2;
 	pipex->path2 = find_path(envp, cmd2[0]);
+}
+
+void	free_pipex(t_pipe pipex)
+{
+	free_matrix(pipex.cmd1);
+	free_matrix(pipex.cmd2);
+	free(pipex.path1);
+	free(pipex.path2);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -47,5 +55,6 @@ int	main(int ac, char **av, char **envp)
 	if (child_process_2 == 0)
 		process_2(pipex, fds);
 	wait(NULL);
+	free_pipex(pipex);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checks.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
+/*   Updated: 2023/05/24 13:12:36 by pmessett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void	check_ac(int ac)
@@ -30,4 +42,17 @@ void	check_fd(t_pipe *pipex, char **av)
 		ft_printf("pipex: Error opening/creating the file");
 		exit(1);
 	}
+}
+
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{	
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }

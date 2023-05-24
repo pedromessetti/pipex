@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:05:06 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/24 10:57:01 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/24 14:51:21 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,29 @@ char	*find_path(char **envp, char *cmd)
 	char	**paths;
 	int		i;
 	t_path	*path_list;
+	char	*result;
+	char	*tmp;
 
 	path_list = NULL;
 	i = -1;
 	paths = handle_path(envp);
 	while (paths[++i])
-		add_path(&path_list, (ft_strjoin(ft_strjoin(paths[i], "/"), cmd)));
-	free(paths);
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		add_path(&path_list, (ft_strjoin(tmp, cmd)));
+		free(tmp);
+	}
+	free_matrix(paths);
 	if (try_acess(&path_list))
-		return (path_list->path);
+	{
+		result = ft_strdup(path_list->path);
+		free_path_list(&path_list);
+		return (result);
+	}
 	else
 	{
 		ft_printf("pipex: %s: command not found\n", cmd);
-		free_path(&path_list);
+		free_path_list(&path_list);
 		exit(1);
 	}
 }
@@ -45,7 +55,8 @@ int	try_acess(t_path **path_list)
 		tmp = (*path_list)->next;
 		if (!access((*path_list)->path, F_OK))
 			return (1);
-		(*path_list)->path = 0;
+		free((*path_list)->path);
+		(*path_list)->path = NULL;
 		free(*path_list);
 		(*path_list) = tmp;
 	}
@@ -54,9 +65,11 @@ int	try_acess(t_path **path_list)
 
 char	**handle_path(char **envp)
 {
-	char *path;
-	char **paths;
-	int i = -1;
+	char	*path;
+	char	**paths;
+	int		i;
+
+	i = -1;
 	while (envp[++i])
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)

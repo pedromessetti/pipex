@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
+/*   Updated: 2023/05/24 14:51:15 by pmessett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 //Removeble function
-void	print_path(t_path **paths_list)
+void	print_path_list(t_path **paths_list)
 {
 	t_path	*curr;
 
@@ -14,7 +26,7 @@ void	print_path(t_path **paths_list)
 }
 
 /* Free the allocated memory for the paths_list */
-void	free_path(t_path **paths_list)
+void	free_path_list(t_path **paths_list)
 {
 	t_path	*tmp;
 
@@ -23,7 +35,8 @@ void	free_path(t_path **paths_list)
 	while (*paths_list)
 	{
 		tmp = (*paths_list)->next;
-		(*paths_list)->path = 0;
+		free((*paths_list)->path);
+		(*paths_list)->path = NULL;
 		free(*paths_list);
 		(*paths_list) = tmp;
 	}
