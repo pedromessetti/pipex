@@ -8,7 +8,7 @@ void	print_path(t_path **paths_list)
 	curr = *paths_list;
 	while (curr)
 	{
-		ft_printf("Path: %s\n", curr->path);
+		ft_printf("Path => %s\n", curr->path);
 		curr = curr->next;
 	}
 }

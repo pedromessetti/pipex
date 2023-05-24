@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/23 10:46:28 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:26:10 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void				free_path(t_path **paths_list);
 void				print_path(t_path **paths_list);
 t_path				*set_path_list(t_path *path_list, char **paths, char *cmd);
 int					try_acess(t_path **path_list);
-void				start_child_process(t_pipe pipex);
+void				process_1(t_pipe pipex, int fds[]);
+void				process_2(t_pipe pipex, int fds[]);
 void				check_ac(int ac);
 void				check_fd(t_pipe *pipex, char **av);
 char				**handle_path(char **envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:05:06 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/23 15:07:15 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:16:48 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ char	*find_path(char **envp, char *cmd)
 
 	path_list = NULL;
 	i = -1;
-	while (cmd[++i] != ' ' && cmd[i])
-		;
-	cmd[i] = '\0';
 	paths = handle_path(envp);
 	path_list = set_path_list(path_list, paths, cmd);
-	print_path(&path_list);
 	free(paths);
 	if (try_acess(&path_list))
 		return (path_list->path);
