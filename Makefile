@@ -24,8 +24,8 @@ REPEATED_CHARS = $(call repeat_char,$(shell seq $(NUM)))
 all: $(NAME)
 
 $(NAME):	$(OBJS)
-	make clean -C ./ft_printf/; \
-	make clean -C ./libft/; \
+	make  -C ./ft_printf/; \
+	make  -C ./libft/; \
 	$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(WHITE)	$(NAME)" | tr '[:lower:]' '[:upper:]'

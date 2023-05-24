@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/24 15:02:11 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:23:48 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,29 @@ typedef struct t_pipe
 	int				fd2;
 }					t_pipe;
 
+/* --- Path Functions --- */
+
 char				*find_path(char **envp, char *cmd);
 void				add_path(t_path **path_list, char *path);
-void				free_path_list(t_path **paths_list);
-void				print_path_list(t_path **paths_list);
+t_path				*handle_path(t_path *path_list, char **paths, char *cmd);
+char				**handle_path_aux(char **envp);
 int					try_acess(t_path **path_list);
-void				process_1(t_pipe pipex, int fds[]);
-void				process_2(t_pipe pipex, int fds[]);
+void				print_path_list(t_path **paths_list);
+
+/* --- Child Process Functions --- */
+
+void				process_1(t_pipe pipex, int fds[], char **envp);
+void				process_2(t_pipe pipex, int fds[], char **envp);
+
+/* --- Checker Functions --- */
+
 void				check_ac(int ac);
 void				check_fd(t_pipe *pipex, char **av);
-char				**handle_path(char **envp);
-void				free_matrix(char **matrix);
+
+/* --- Free Functions --- */
+
+void				free_path_list(t_path **paths_list);
 void				free_pipex(t_pipe pipex);
+void				free_matrix(char **matrix);
 
 #endif

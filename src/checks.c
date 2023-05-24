@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/24 13:12:36 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:33:08 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ void	free_matrix(char **matrix)
 {
 	int	i;
 
-	i = 0;
-	while (matrix[i])
-	{	
+	i = -1;
+	while (matrix[++i])
 		free(matrix[i]);
-		i++;
-	}
 	free(matrix);
 }
