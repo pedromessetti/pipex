@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/24 10:26:44 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:56:15 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int ac, char **av, char **envp)
 {
 	t_pipe	pipex;
 	int		fds[2];
-	int		stat_loc;
 	pid_t	child_process_1;
 	pid_t	child_process_2;
 
@@ -47,6 +46,6 @@ int	main(int ac, char **av, char **envp)
 	child_process_2 = fork();
 	if (child_process_2 == 0)
 		process_2(pipex, fds);
-	waitpid(-1, &stat_loc, 0);
+	wait(NULL);
 	return (0);
 }

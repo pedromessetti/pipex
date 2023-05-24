@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:05:06 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/24 10:16:48 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/24 10:57:01 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*find_path(char **envp, char *cmd)
 	path_list = NULL;
 	i = -1;
 	paths = handle_path(envp);
-	path_list = set_path_list(path_list, paths, cmd);
+	while (paths[++i])
+		add_path(&path_list, (ft_strjoin(ft_strjoin(paths[i], "/"), cmd)));
 	free(paths);
 	if (try_acess(&path_list))
 		return (path_list->path);
@@ -31,22 +32,6 @@ char	*find_path(char **envp, char *cmd)
 		free_path(&path_list);
 		exit(1);
 	}
-}
-
-t_path	*set_path_list(t_path *path_list, char **paths, char *cmd)
-{
-	int	i;
-
-	i = -1;
-	while (paths[++i])
-	{
-		if (!path_list)
-			path_list = add_path(ft_strjoin(ft_strjoin(paths[i], "/"), cmd));
-		else
-			add_tail(&path_list, add_path(ft_strjoin(ft_strjoin(paths[i], "/"),
-							cmd)));
-	}
-	return (path_list);
 }
 
 int	try_acess(t_path **path_list)
