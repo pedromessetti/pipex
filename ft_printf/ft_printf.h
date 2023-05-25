@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 11:21:52 by pmessett          #+#    #+#             */
-/*   Updated: 2023/04/18 10:17:21 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:49:34 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ void	ft_putstr(char *s, unsigned int *size);
 void	ft_putnbr(int n, unsigned int *size);
 void	ft_putnbr_base(unsigned int n, char *base, unsigned int *size);
 void	ft_putunsnbr(unsigned int n, unsigned int *size);
-void	ft_putaddr(unsigned long int n, unsigned int *size);
 
 #endif

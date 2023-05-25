@@ -1,3 +1,9 @@
+.SILENT:
+# Color variables
+RED = \033[1;31m
+GREEN = \033[1;32m
+WHITE = \033[1;37m
+RESET = \033[0m
 NAME = libftprintf.a
 
 CC = cc
@@ -11,13 +17,13 @@ ft_putchar.c \
 ft_putstr.c \
 ft_putnbr.c \
 ft_putnbr_base.c \
-ft_putunsnbr.c \
-ft_putaddr.c
-                     
+ft_putunsnbr.c 
+
 OBJS = $(SRCS:.c=.o)
 
 ${NAME}:	${OBJS}
 			${CME} ${NAME} ${OBJS}
+			echo "$(GREEN)[OK]$(NAME)$(RESET)"
 
 all:		${NAME}
 
@@ -29,8 +35,5 @@ fclean:		clean
 
 re:			fclean all
 
-compile:	re
-	cc *.c
-
-run:	compile
-	./a.out
+run: re
+	$(MAKE) clean

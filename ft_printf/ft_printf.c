@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 11:28:37 by pmessett          #+#    #+#             */
-/*   Updated: 2023/04/18 10:00:55 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/24 22:49:46 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	ft_checkflag(const char c, va_list args, unsigned int *size)
 		ft_putnbr_base(va_arg(args, unsigned int), HEX_LOW, size);
 	else if (c == 'X')
 		ft_putnbr_base(va_arg(args, unsigned int), HEX_UP, size);
-	else if (c == 'p')
-		ft_putaddr(va_arg(args, unsigned long int), size);
 }
 
 int	ft_printf(const char *s, ...)

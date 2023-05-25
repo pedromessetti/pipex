@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/24 20:22:45 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/25 08:35:01 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	set_content(t_pipe *pipex, char **av, char **envp)
 
 	if (ft_strncmp(av[2], "/", 1) == 0 || ft_strncmp(av[2], "./", 2) == 0)
 	{
-		printf("PATH => %s\n", av[2]);
+		cmd1 = (char **)malloc(sizeof(char **) * (ft_strlen(av[2] + 1)));
+		if (!cmd1)
+			exit(1);
 		cmd1[0] = av[2];
 		cmd1[1] = NULL;
 		pipex->path1 = cmd1[0];
@@ -27,31 +29,43 @@ void	set_content(t_pipe *pipex, char **av, char **envp)
 	}
 	else
 	{
-		pipex->cmd1 = ft_split(av[2], ' ');
+		cmd1 = ft_split(av[2], ' ');
+		pipex->cmd1 = cmd1;
 		pipex->path1 = find_path(envp, pipex->cmd1[0]);
 	}
 	if (ft_strncmp(av[3], "/", 1) == 0 || ft_strncmp(av[3], "./", 2) == 0)
 	{
+		cmd2 = malloc(sizeof(char **) * (ft_strlen(av[3] + 1)));
 		cmd2[0] = av[3];
 		cmd2[1] = NULL;
 		pipex->path2 = cmd2[0];
 		pipex->cmd2 = cmd2;
+		return ;
 	}
 	else
 	{
-		pipex->cmd2 = ft_split(av[3], ' ');
+		cmd2 = ft_split(av[3], ' ');
+		pipex->cmd2 = cmd2;
 		pipex->path2 = find_path(envp, pipex->cmd2[0]);
 	}
 }
 
 void	free_pipex(t_pipe pipex)
 {
-	if (pipex.cmd1[1] != NULL)
+	if (pipex.cmd1)
+	{
 		free_matrix(pipex.cmd1);
-	if (pipex.cmd2[1] != NULL)
+		free(pipex.cmd1);
+	}
+	if (pipex.cmd2)
+	{
 		free_matrix(pipex.cmd2);
-	free(pipex.path1);
-	free(pipex.path2);
+		free(pipex.cmd2);
+	}
+	if (pipex.path1)
+		free(pipex.path1);
+	if (pipex.path2)
+		free(pipex.path2);
 }
 
 int	main(int ac, char **av, char **envp)
