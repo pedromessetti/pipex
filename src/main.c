@@ -6,90 +6,90 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/25 08:35:01 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:13:21 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	set_content(t_pipe *pipex, char **av, char **envp)
+static void	handle_here_doc(void)
 {
-	char	**cmd1;
-	char	**cmd2;
-
-	if (ft_strncmp(av[2], "/", 1) == 0 || ft_strncmp(av[2], "./", 2) == 0)
-	{
-		cmd1 = (char **)malloc(sizeof(char **) * (ft_strlen(av[2] + 1)));
-		if (!cmd1)
-			exit(1);
-		cmd1[0] = av[2];
-		cmd1[1] = NULL;
-		pipex->path1 = cmd1[0];
-		pipex->cmd1 = cmd1;
-	}
-	else
-	{
-		cmd1 = ft_split(av[2], ' ');
-		pipex->cmd1 = cmd1;
-		pipex->path1 = find_path(envp, pipex->cmd1[0]);
-	}
-	if (ft_strncmp(av[3], "/", 1) == 0 || ft_strncmp(av[3], "./", 2) == 0)
-	{
-		cmd2 = malloc(sizeof(char **) * (ft_strlen(av[3] + 1)));
-		cmd2[0] = av[3];
-		cmd2[1] = NULL;
-		pipex->path2 = cmd2[0];
-		pipex->cmd2 = cmd2;
-		return ;
-	}
-	else
-	{
-		cmd2 = ft_split(av[3], ' ');
-		pipex->cmd2 = cmd2;
-		pipex->path2 = find_path(envp, pipex->cmd2[0]);
-	}
+	printf("Handling here-document..\n");
+	exit(EXIT_SUCCESS);
 }
 
-void	free_pipex(t_pipe pipex)
+static void	child_process(t_path *path_list, int pipe_fds[], int fds[],
+		char **envp)
 {
-	if (pipex.cmd1)
+	//printf("PATH => %s\n", path_list->path);
+	close(pipe_fds[0]);
+	dup2(fds[0], STDIN_FILENO);
+	dup2(pipe_fds[1], STDOUT_FILENO);
+	execve(path_list->path, path_list->path_and_cmd, envp);
+	return ;
+}
+
+static void	last_process(t_path *path_list, int pipe_fds[], int fds[],
+		char **envp)
+{
+	//printf("PATH => %s\n", path_list->path);
+	close(pipe_fds[1]);
+	dup2(pipe_fds[0], STDIN_FILENO);
+	dup2(fds[1], STDOUT_FILENO);
+	execve(path_list->path, path_list->path_and_cmd, envp);
+	free_path_list(&path_list);
+	exit(1);
+}
+
+static void	start_process(t_path *path_list, int pipe_fds[], int fds[],
+		char **envp)
+{
+	pid_t	process_id;
+	t_path	*curr;
+
+	curr = path_list;
+	while (curr)
 	{
-		free_matrix(pipex.cmd1);
-		free(pipex.cmd1);
+		process_id = fork();
+		if (process_id == 0)
+		{
+			if (curr->next)
+				child_process(curr, pipe_fds, fds, envp);
+			else
+				last_process(curr, pipe_fds, fds, envp);
+			return ;
+		}
+		else if (process_id > 0)
+		{
+			if (!curr->next)
+				return ;
+		}
+		else
+		{
+			ft_printf("pipex: Error during fork process\n");
+			exit(EXIT_FAILURE);
+		}
+		waitpid(process_id, NULL, 0);
+		curr = curr->next;
 	}
-	if (pipex.cmd2)
-	{
-		free_matrix(pipex.cmd2);
-		free(pipex.cmd2);
-	}
-	if (pipex.path1)
-		free(pipex.path1);
-	if (pipex.path2)
-		free(pipex.path2);
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	t_pipe	pipex;
+	t_path	*path_list;
 	int		fds[2];
-	pid_t	child_process_1;
-	pid_t	child_process_2;
+	int		pipe_fds[2];
 
+	path_list = NULL;
 	check_ac(ac);
-	check_fd(&pipex, av);
-	set_content(&pipex, av, envp);
-	if (pipe(fds) == -1)
-	{
-		ft_printf("pipex: Error creating pipe\n");
-		exit(1);
-	}
-	child_process_1 = fork();
-	if (child_process_1 == 0)
-		process_1(pipex, fds, envp);
-	child_process_2 = fork();
-	if (child_process_2 == 0)
-		process_2(pipex, fds, envp);
-	waitpid(-1, NULL, 0);
-	free_pipex(pipex);
+	if (!(ft_strncmp(av[1], "here_doc", ft_strlen(av[1]))))
+		handle_here_doc();
+	check_fd(fds, av, ac);
+	if (pipe(pipe_fds) == -1)
+		exit(EXIT_FAILURE);
+	path_list = define_path(path_list, ac, av, envp);
+	start_process(path_list, pipe_fds, fds, envp);
+	//print_path_list(&path_list);
+	free_path_list(&path_list);
 	return (0);
 }

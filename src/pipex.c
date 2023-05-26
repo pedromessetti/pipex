@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:05:06 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/24 23:23:15 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/25 10:03:48 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	**handle_path_aux(char **envp)
 	char	*path;
 	char	**paths;
 	int		i;
-	char	*tmp;
 
 	i = -1;
 	while (envp[++i])
