@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 15:50:53 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:02:15 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	free_path_list(t_path **paths_list)
 	while (*paths_list)
 	{
 		tmp = (*paths_list)->next;
-		if((*paths_list)->path_and_cmd[0] != NULL)
-			free_matrix((*paths_list)->path_and_cmd);
-		printf("path => %s\n", paths_list.)
-		if ((*paths_list)->path_and_cmd[0] != NULL)
+		free_matrix((*paths_list)->path_and_cmd);
+		if (!(*paths_list)->path)
 			free((*paths_list)->path);
 		free(*paths_list);
 		*paths_list = tmp;

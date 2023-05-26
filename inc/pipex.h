@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/26 14:27:25 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:07:03 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct t_path
 {
 	char			*path;
 	char			**path_and_cmd;
+	pid_t			pid;
 	int				pipe_fds[2];
 	struct t_path	*next;
 	struct t_path	*prev;

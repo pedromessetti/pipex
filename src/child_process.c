@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 15:48:38 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:43:57 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	child_process(t_path *path_list, char **envp)
 {
-	// printf("PATH => %s\n", path_list->path);
 	execve(path_list->path, path_list->path_and_cmd, envp);
 	free_path_list(&path_list);
-	return ;
+	exit(EXIT_FAILURE);
 }
 
 void	bind_stds(t_path *curr, int fds[])
@@ -59,6 +58,7 @@ void	start_process(t_path *path_list, int fds[], char **envp)
 		if (pipe(curr->pipe_fds) == -1)
 			return ;
 		process_id = fork();
+		curr->pid = process_id;
 		if (process_id == 0)
 		{
 			bind_stds(curr, fds);
@@ -81,6 +81,12 @@ void	start_process(t_path *path_list, int fds[], char **envp)
 			close(curr->pipe_fds[0]);
 		}
 		close(curr->pipe_fds[1]);
+		curr = curr->next;
+	}
+	curr = path_list;
+	while (curr)
+	{
+		waitpid(curr->pid, NULL, 0);
 		curr = curr->next;
 	}
 }

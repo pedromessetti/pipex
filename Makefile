@@ -9,7 +9,7 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS =  -g -I inc #-fsanitize=address
+CFLAGS =  -g -I inc -fsanitize=address
 
 OTHERFLAG = ./ft_printf/libftprintf.a
 
