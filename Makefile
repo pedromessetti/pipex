@@ -13,7 +13,7 @@ CFLAGS =  -g -I inc #-fsanitize=address
 
 OTHERFLAG = ./ft_printf/libftprintf.a
 
-SRCS = src/main.c src/path.c src/list_utils.c src/checks.c
+SRCS = src/main.c src/path.c src/list_utils.c src/checks.c src/ft_utils.c src/child_process.c
 
 OBJS = $(SRCS:.c=.o)
 

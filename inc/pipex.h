@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/26 08:47:32 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:27:25 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,13 @@ typedef struct t_path
 {
 	char			*path;
 	char			**path_and_cmd;
+	int				pipe_fds[2];
 	struct t_path	*next;
+	struct t_path	*prev;
 }					t_path;
-
-typedef struct t_pipe
-{
-	char			*path1;
-	char			*path2;
-	char			**cmd1;
-	char			**cmd2;
-	int				fd1;
-	int				fd2;
-}					t_pipe;
 
 /* --- Path Functions --- */
 
-t_path				*set_path_list(t_path *path_list, char *path,
-						char **path_and_cmd);
 char				**set_possible_paths(char **envp);
 t_path				*find_path(t_path *path_list, char **possible_paths,
 						char *av, char **path_and_cmd);
@@ -52,27 +42,30 @@ t_path				*absolute_path(t_path *path_list, char *av,
 						char **path_and_cmd);
 t_path				*define_path(t_path *path_list, int ac, char **av,
 						char **envp);
+
+/* --- List Functions --- */
+
 t_path				*add_path(char *path, char **path_and_cmd);
-void				print_path_list(t_path **paths_list);
 void				add_tail(t_path **list_head, t_path *new_path);
 t_path				*find_last(t_path *paths_list);
+void				free_path_list(t_path **paths_list);
+t_path				*set_path_list(t_path *path_list, char *path,
+						char **path_and_cmd);
 
 /* --- Child Process Functions --- */
 
-void				process_1(t_pipe pipex, int fds[], char **envp);
-void				process_2(t_pipe pipex, int fds[], char **envp);
+void				child_process(t_path *path_list, char **envp);
+void				bind_stds(t_path *curr, int fds[]);
+void				start_process(t_path *path_list, int fds[], char **envp);
 
 /* --- Checker Functions --- */
 
 void				check_ac(int ac);
 int					*check_fd(int fd[], char **av, int ac);
 
-/* --- Free Functions --- */
+/* --- Utils Functions --- */
 
-void				free_path_list(t_path **paths_list);
-void				free_pipex(t_pipe pipex);
 void				free_matrix(char **matrix);
-
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
 

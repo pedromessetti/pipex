@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 10:54:15 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:25:23 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,4 @@ int	*check_fd(int fd[], char **av, int ac)
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = -1;
-	if (!*matrix)
-		return ;
-	while (matrix[++i])
-		free(matrix[i]);
-	free(matrix);
 }

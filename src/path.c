@@ -1,13 +1,16 @@
-#include "pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
+/*   Updated: 2023/05/26 15:28:42 by pmessett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_path	*set_path_list(t_path *path_list, char *path,	char **path_and_cmd)
-{
-	if (!path_list)
-		path_list = add_path(path, path_and_cmd);
-	else
-		add_tail(&path_list, add_path(path, path_and_cmd));
-	return (path_list);
-}
+#include "pipex.h"
 
 char	**set_possible_paths(char **envp)
 {
@@ -32,7 +35,8 @@ char	**set_possible_paths(char **envp)
 	return (paths_arr);
 }
 
-t_path	*find_path(t_path *path_list, char **possible_paths, char *av,	char **path_and_cmd)
+t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
+		char **path_and_cmd)
 {
 	int		i;
 	char	*tmp;
@@ -51,7 +55,7 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,	char **pat
 		return (NULL);
 	}
 	path_and_cmd[0] = tmp;
-	path_list = set_path_list(path_list, tmp, path_and_cmd);
+	path_list = set_path_list(path_list, path_and_cmd[0], path_and_cmd);
 	return (path_list);
 }
 
@@ -64,7 +68,7 @@ t_path	*absolute_path(t_path *path_list, char *av, char **path_and_cmd)
 	{
 		path_and_cmd[0] = path;
 		path_and_cmd[1] = NULL;
-		path_list = set_path_list(path_list, path, path_and_cmd);
+		path_list = set_path_list(path_list, path_and_cmd[0], path_and_cmd);
 		return (path_list);
 	}
 	else
@@ -85,8 +89,13 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	while (av[++i] && i < ac - 1)
 	{
 		if (!*av[i])
+		{
+			free_path_list(&path_list);
 			exit(EXIT_FAILURE);
+		}
 		path_and_cmd = ft_split(av[i], ' ');
+		if (!path_and_cmd)
+			return (NULL);
 		if (!(ft_strncmp(av[i], "/", 1)) || !(ft_strncmp(av[i], "./", 2)))
 			path_list = absolute_path(path_list, av[i], path_and_cmd);
 		else
