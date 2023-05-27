@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/26 16:07:03 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:32:18 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ int					*check_fd(int fd[], char **av, int ac);
 void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
-
+int					str_is_space(char *s);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 20:04:14 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:36:06 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 	{
 		ft_printf("pipex:%s: command not found\n", av);
 		free(tmp);
+		free_matrix(path_and_cmd);
 		return (NULL);
 	}
 	free(path_and_cmd[0]);
@@ -83,6 +84,7 @@ t_path	*absolute_path(t_path *path_list, char *av, char **path_and_cmd)
 	{
 		ft_printf("pipex:%s: command not found\n", av);
 		free(path);
+		free_matrix(path_and_cmd);
 		return (NULL);
 	}
 }
@@ -98,21 +100,31 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	{
 		if (!*av[i])
 		{
-			free_path_list(&path_list);
-			ft_printf("pipex erro: %s: command not found\n", av[i]);
-			exit(EXIT_FAILURE);
+			if (i == ac - 2)
+			{
+				free_path_list(&path_list);
+				exit(EXIT_FAILURE);
+			}
+			ft_printf("pipex:%s: command not found\n", av[i]);
 		}
-		path_and_cmd = ft_split(av[i], ' ');
-		if (!path_and_cmd)
-			return (NULL);
-		if (!(ft_strncmp(av[i], "/", 1)) || !(ft_strncmp(av[i], "./", 2)))
-			path_list = absolute_path(path_list, av[i], path_and_cmd);
+		else if (!str_is_space(av[i]))
+		{
+			path_and_cmd = ft_split(av[i], ' ');
+			if (!(ft_strncmp(av[i], "/", 1)) || !(ft_strncmp(av[i], "./", 2)))
+				path_list = absolute_path(path_list, av[i], path_and_cmd);
+			else
+			{
+				possible_paths = set_possible_paths(envp);
+				path_list = find_path(path_list, possible_paths, av[i],
+						path_and_cmd);
+				free_matrix(possible_paths);
+			}
+		}
 		else
 		{
-			possible_paths = set_possible_paths(envp);
-			path_list = find_path(path_list, possible_paths, av[i],
-					path_and_cmd);
-			free_matrix(possible_paths);
+			free_path_list(&path_list);
+			ft_printf("pipex:%s: command not found\n", av[i]);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (path_list);

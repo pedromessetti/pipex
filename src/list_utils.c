@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 16:02:15 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:22:39 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@
 	else add a new path in the end*/
 t_path	*set_path_list(t_path *path_list, char *path, char **path_and_cmd)
 {
+	t_path	*new_list;
+
+	new_list = NULL;
 	if (!path_list)
 		path_list = add_path(path, path_and_cmd);
 	else
-		add_tail(&path_list, add_path(path, path_and_cmd));
+	{
+		new_list = add_path(path, path_and_cmd);
+		add_tail(&path_list, new_list);
+	}
 	return (path_list);
 }
 
@@ -34,7 +40,8 @@ void	free_path_list(t_path **paths_list)
 	while (*paths_list)
 	{
 		tmp = (*paths_list)->next;
-		free_matrix((*paths_list)->path_and_cmd);
+		if ((*paths_list)->path_and_cmd[0])
+			free_matrix((*paths_list)->path_and_cmd);
 		if (!(*paths_list)->path)
 			free((*paths_list)->path);
 		free(*paths_list);

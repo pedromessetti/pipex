@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:24:57 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/26 15:06:30 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:30:58 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,27 @@ void	free_matrix(char **matrix)
 	int	i;
 
 	i = -1;
-	if (!*matrix)
+	if (!*matrix || !**matrix)
 		return ;
 	while (matrix[++i])
+	{
+		//if(!*matrix[i])
 		free(matrix[i]);
+	}
 	free(matrix);
+}
+
+/*
+Return 1 with the str has only spaces or tabs
+Return 0 with the str has other chars
+*/
+int	str_is_space(char *s)
+{
+	int i = -1;
+	while (s[++i])
+	{
+		if (s[i] != ' ' && s[i] != '\t')
+			return (0);
+	}
+	return (1);
 }
