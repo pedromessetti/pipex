@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/27 17:58:46 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:30:04 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	*check_fd(int fd[], char **av, int ac)
 		ft_printf("pipex:%s: Archive not found\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-	fd_tmp = open("tmp", O_CREAT | O_WRONLY, 0644);
 	fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd[1] == -1)
 	{
