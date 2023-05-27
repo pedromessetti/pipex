@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/27 11:36:06 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/27 17:39:55 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 		char **path_and_cmd)
 {
 	int		i;
-	int		count;
 	char	*tmp;
 
-	count = -1;
 	tmp = NULL;
 	i = -1;
 	while (possible_paths[++i])
 	{
-		count++;
 		tmp = new_strjoin(possible_paths[i], "/", path_and_cmd[0]);
 		if (!access(tmp, F_OK))
 			break ;
@@ -96,6 +93,9 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	int		i;
 
 	i = 1;
+	if (((ft_strncmp(av[1], "here_doc", ft_strlen("here_doc"))) == 0)
+		&& (ft_strlen(av[1]) == ft_strlen("here_doc")))
+		i = 2;
 	while (av[++i] && i < ac - 1)
 	{
 		if (!*av[i])
@@ -122,9 +122,12 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 		}
 		else
 		{
-			free_path_list(&path_list);
+			if (i == ac - 2)
+			{
+				free_path_list(&path_list);
+				exit(EXIT_FAILURE);
+			}
 			ft_printf("pipex:%s: command not found\n", av[i]);
-			exit(EXIT_FAILURE);
 		}
 	}
 	return (path_list);

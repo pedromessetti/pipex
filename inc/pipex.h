@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/27 11:32:18 by pedro            ###   ########.fr       */
+/*   Updated: 2023/05/27 18:10:55 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_path				*set_path_list(t_path *path_list, char *path,
 
 void				child_process(t_path *path_list, char **envp);
 void				bind_stds(t_path *curr, int fds[]);
-void				start_process(t_path *path_list, int fds[], char **envp);
+void				start_procft_strleness(t_path *path_list, int fds[], char **envp);
 
 /* --- Checker Functions --- */
 
@@ -70,4 +70,9 @@ void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
 int					str_is_space(char *s);
+
+/* --- Here Doc Functions --- */
+
+void				handle_here_doc(int ac, char **av, int fd[]);
+
 #endif
