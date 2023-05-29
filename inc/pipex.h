@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/27 18:10:55 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:58:19 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_path				*set_path_list(t_path *path_list, char *path,
 
 void				child_process(t_path *path_list, char **envp);
 void				bind_stds(t_path *curr, int fds[]);
-void				start_procft_strleness(t_path *path_list, int fds[], char **envp);
+void				start_process(t_path *path_list, int fds[], char **envp);
 
 /* --- Checker Functions --- */
 
