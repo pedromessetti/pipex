@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/27 19:30:04 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:53:31 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ void	check_ac(int ac)
 
 int	*check_fd(int fd[], char **av, int ac)
 {
-	int	fd_tmp;
-
-	fd[0] = open(av[1], O_RDONLY);
-	if (fd[0] == -1)
+	if (((ft_strncmp(av[1], "here_doc\0", ft_strlen("here_doc") + 1)) == 0))
+		fd[0] = STDIN_FILENO;
+	else
 	{
-		ft_printf("pipex:%s: Archive not found\n", av[1]);
-		exit(EXIT_FAILURE);
+		fd[0] = open(av[1], O_RDONLY);
+		if (fd[0] == -1)
+		{
+			ft_printf("pipex:%s: No such file or directory\n", av[1]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd[1] == -1)

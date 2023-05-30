@@ -6,7 +6,7 @@
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/29 10:58:19 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:16:44 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PIPEX_H
 
 # include "../ft_printf/ft_printf.h"
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdio.h>
@@ -29,7 +29,7 @@ typedef struct t_path
 	char			*path;
 	char			**path_and_cmd;
 	pid_t			pid;
-	int				pipe_fds[2];
+	int				pipe_fd[2];
 	struct t_path	*next;
 	struct t_path	*prev;
 }					t_path;
@@ -56,8 +56,8 @@ t_path				*set_path_list(t_path *path_list, char *path,
 /* --- Child Process Functions --- */
 
 void				child_process(t_path *path_list, char **envp);
-void				bind_stds(t_path *curr, int fds[]);
-void				start_process(t_path *path_list, int fds[], char **envp);
+void				bind_stds(t_path *curr, int fd[]);
+void				start_process(t_path *path_list, int fd[], char **envp);
 
 /* --- Checker Functions --- */
 
@@ -69,10 +69,5 @@ int					*check_fd(int fd[], char **av, int ac);
 void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
-int					str_is_space(char *s);
-
-/* --- Here Doc Functions --- */
-
-void				handle_here_doc(int ac, char **av, int fd[]);
 
 #endif
