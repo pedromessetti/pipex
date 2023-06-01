@@ -6,12 +6,14 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/01 08:14:03 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/01 08:27:36 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*Set and returns a array of possible paths by iterate into envp untill
+find the PATH variable and split the result by the ':'*/
 char	**set_possible_paths(char **envp)
 {
 	char	*path;
@@ -75,6 +77,7 @@ t_path	*absolute_path(t_path *path_list, char *av, char **path_and_cmd)
 	return (path_list);
 }
 
+/*Main function to define if the argv is an absolute path or not*/
 t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 {
 	char	**path_and_cmd;
