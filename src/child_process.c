@@ -3,20 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/30 11:38:49 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:24:46 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+static int	str_is_num(char *s)
+{
+	int	i;
+
+	i = -1;
+	if (!s)
+		return (0);
+	while (s[++i])
+		if (!ft_isnum(s[i]))
+			return (0);
+	return (1);
+}
+
+static void	check_exit_status(t_path *path_list)
+{
+	if (str_is_num(path_list->path_and_cmd[1]))
+		return ;
+	else
+		ft_printf("exit: %s: numeric argument required\n",
+			path_list->path_and_cmd[1]);
+}
+
 void	child_process(t_path *path_list, char **envp)
 {
+	char	*tmp;
+
+	if (tmp = ft_strnstr(path_list->path, "/exit\0", ft_strlen(path_list->path)))
+		if (check_builtin(++tmp))
+			check_exit_status(path_list);
 	execve(path_list->path, path_list->path_and_cmd, envp);
 	free_path_list(&path_list);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 void	bind_stds(t_path *curr, int fd[])
@@ -28,7 +55,6 @@ void	bind_stds(t_path *curr, int fd[])
 	}
 	else
 	{
-		// printf("FD => %i\n", curr->prev->pipe_fd[0]);
 		if (dup2(curr->prev->pipe_fd[0], STDIN_FILENO) != -1)
 			close(curr->prev->pipe_fd[0]);
 	}

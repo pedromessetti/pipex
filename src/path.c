@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/30 14:18:12 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/01 08:14:03 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	**set_possible_paths(char **envp)
 	return (paths_arr);
 }
 
+/*Find the correct path by tryng to acess all the possible paths*/
 t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 		char **path_and_cmd)
 {
@@ -51,21 +52,22 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 		if (possible_paths[i + 1])
 			free(tmp);
 	}
-	if (!tmp || !possible_paths[i])
-		ft_printf("pipex:%s: command not found\n", av);
+	if (!tmp || !possible_paths[i] && !check_builtin(av))
+		ft_printf("%s: command not found\n", av);
 	free(path_and_cmd[0]);
 	path_and_cmd[0] = tmp;
 	path_list = set_path_list(path_list, path_and_cmd[0], path_and_cmd);
 	return (path_list);
 }
 
+/*Try to acess the path passes as argument*/
 t_path	*absolute_path(t_path *path_list, char *av, char **path_and_cmd)
 {
 	char	*path;
 
 	path = ft_strdup(av);
 	if (access(av, F_OK) == -1)
-		ft_printf("pipex:%s: command not found\n", av);
+		ft_printf("%s: command not found\n", av);
 	free(path_and_cmd[0]);
 	path_and_cmd[0] = path;
 	path_and_cmd[1] = NULL;
@@ -86,7 +88,7 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	{
 		if (!*av[i] || ft_str_is_space(av[i]))
 		{
-			ft_printf("pipex:%s: command not found\n", av[i]);
+			ft_printf("%s: command not found\n", av[i]);
 			if (i == ac - 2)
 			{
 				free_path_list(&path_list);
@@ -102,7 +104,7 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 			{
 				possible_paths = set_possible_paths(envp);
 				path_list = find_path(path_list, possible_paths, av[i],
-						path_and_cmd);
+					path_and_cmd);
 				free_matrix(possible_paths);
 			}
 		}

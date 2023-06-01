@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/30 11:29:29 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:24:03 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	main(int ac, char **av, char **envp)
 	check_fd(fd, av, ac);
 	path_list = define_path(path_list, ac, av, envp);
 	start_process(path_list, fd, envp);
-	// print_path_list(&path_list);
+	//print_path_list(&path_list);
 	free_path_list(&path_list);
+	unlink(".tmp");
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/30 14:16:44 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:11:13 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void				start_process(t_path *path_list, int fd[], char **envp);
 
 void				check_ac(int ac);
 int					*check_fd(int fd[], char **av, int ac);
+int					check_builtin(char *av);
 
 /* --- Utils Functions --- */
 
