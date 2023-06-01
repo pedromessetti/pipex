@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/31 13:24:46 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/01 08:17:36 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	str_is_num(char *s)
 
 static void	check_exit_status(t_path *path_list)
 {
-	if (str_is_num(path_list->path_and_cmd[1]))
+	if (str_is_num(path_list->path_and_cmd[1]) || !path_list->path_and_cmd[1])
 		return ;
 	else
 		ft_printf("exit: %s: numeric argument required\n",
