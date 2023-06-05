@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:24:57 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/30 14:17:23 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/05 07:44:05 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/*Updated version of strjoin for join 3 strings*/
 char	*new_strjoin(char const *s1, char const *s2, char const *s3)
 {
 	char	*new_s;
@@ -35,6 +36,7 @@ char	*new_strjoin(char const *s1, char const *s2, char const *s3)
 	return (new_s);
 }
 
+/*Function to free the allocated memory for a bidimensional array*/
 void	free_matrix(char **matrix)
 {
 	int	i;
@@ -45,4 +47,20 @@ void	free_matrix(char **matrix)
 	while (matrix[++i])
 		free(matrix[i]);
 	free(matrix);
+}
+
+/*Verify if the string only contains numeric chars
+Return 1 if only contains num chars
+Return 0 if contains other chars*/
+int	str_is_num(char *s)
+{
+	int	i;
+
+	i = -1;
+	if (!s)
+		return (0);
+	while (s[++i])
+		if (!ft_isnum(s[i]))
+			return (0);
+	return (1);
 }

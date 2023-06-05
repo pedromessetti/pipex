@@ -6,33 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/01 08:17:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/05 07:44:39 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static int	str_is_num(char *s)
-{
-	int	i;
-
-	i = -1;
-	if (!s)
-		return (0);
-	while (s[++i])
-		if (!ft_isnum(s[i]))
-			return (0);
-	return (1);
-}
-
-static void	check_exit_status(t_path *path_list)
-{
-	if (str_is_num(path_list->path_and_cmd[1]) || !path_list->path_and_cmd[1])
-		return ;
-	else
-		ft_printf("exit: %s: numeric argument required\n",
-			path_list->path_and_cmd[1]);
-}
 
 void	child_process(t_path *path_list, char **envp)
 {
@@ -94,7 +72,7 @@ void	start_process(t_path *path_list, int fd[], char **envp)
 		}
 		else if (process_id == -1)
 		{
-			ft_printf("pipex: Error during fork process\n");
+			ft_printf("Error during fork process\n");
 			free_path_list(&path_list);
 			exit(EXIT_FAILURE);
 		}

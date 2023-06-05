@@ -6,14 +6,13 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/05/31 11:11:13 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/05 07:44:21 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../ft_printf/ft_printf.h"
 # include "../libft/inc/libft.h"
 # include <fcntl.h>
 # include <stdarg.h>
@@ -64,11 +63,12 @@ void				start_process(t_path *path_list, int fd[], char **envp);
 void				check_ac(int ac);
 int					*check_fd(int fd[], char **av, int ac);
 int					check_builtin(char *av);
+void				check_exit_status(t_path *path_list);
 
 /* --- Utils Functions --- */
 
 void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
-
+int					str_is_num(char *s);
 #endif

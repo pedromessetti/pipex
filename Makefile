@@ -20,13 +20,14 @@ NUM = 7
 REPEATED_CHARS = $(call repeat_char,$(shell seq $(NUM)))
 
 $(NAME):	$(OBJS)
-		make  -C ./libft/;
-		make  -C ./ft_printf/;
-		$(CC) $(CFLAGS) $(OBJS) ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
-		echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
-		echo "$(WHITE)	$(NAME)"
-		echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
-		echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
+	if [ ! -f ./libft/libft.a ]; then \
+		make run -C ./libft/; \
+	fi
+	$(CC) $(CFLAGS) $(OBJS) ./libft/libft.a -o $(NAME)
+	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
+	echo "$(WHITE)	$(NAME)"
+	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
+	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
 
 all: $(NAME)
 

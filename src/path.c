@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/01 08:27:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/05 07:39:43 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 			free(tmp);
 	}
 	if (!tmp || !possible_paths[i] && !check_builtin(av))
-		ft_printf("%s: command not found\n", av);
+		perror(av);
 	free(path_and_cmd[0]);
 	path_and_cmd[0] = tmp;
 	path_list = set_path_list(path_list, path_and_cmd[0], path_and_cmd);
@@ -69,7 +69,7 @@ t_path	*absolute_path(t_path *path_list, char *av, char **path_and_cmd)
 
 	path = ft_strdup(av);
 	if (access(av, F_OK) == -1)
-		ft_printf("%s: command not found\n", av);
+		perror(av);
 	free(path_and_cmd[0]);
 	path_and_cmd[0] = path;
 	path_and_cmd[1] = NULL;
@@ -91,11 +91,12 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	{
 		if (!*av[i] || ft_str_is_space(av[i]))
 		{
-			ft_printf("%s: command not found\n", av[i]);
+			ft_printf(" %s: command not found\n", av[i]);
 			if (i == ac - 2)
 			{
 				free_path_list(&path_list);
-				exit(EXIT_FAILURE);
+				unlink(".tmp");
+				//exit(EXIT_FAILURE);
 			}
 		}
 		else
