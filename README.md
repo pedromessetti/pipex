@@ -45,7 +45,7 @@ At start, the program first checks if the argument count is more than five. Then
 
 Now the program will handle the commands or absolute paths passed as arguments. If it's a command, set a bidimensional array of all the possible paths that are getter from `envp` making a string join of the possible path, the slash character "/" and the respectevly command. Then try to access that new generated path with `access()` function, in sucess the path is stored in the tail of a linked list, if couldn't access means that is not a executable command and prints the aproprieted error message. In the case of the argument is an absolute path, the behavior is the same but without the `envp` check.
 
-After reciving and check all the commands and paths the program starts the child process, one for each command and correctly choosing wich file descriptor will be duplicated or closed in each process. Then execute the command on the given file descriptor. At the end, free the allocated memory for the linked list and unlink the temporary input file if exists. 
+After reciving and check all the commands and paths the program starts the child process, one for each command and correctly choosing wich file descriptor will be duplicated or closed in each process. Then execute the command on the given file descriptor, passing the write end for the parent process and waits for the child to terminate. At the end, free the allocated memory for the linked list and unlink the temporary input file if exists. 
 </p>
 
 ## Learnings :brain:
