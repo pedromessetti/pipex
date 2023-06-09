@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:33:25 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/02 10:30:38 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/09 21:20:22 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 /* --- Macro Variables --- */
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 # define HEX_UP "0123456789ABCDEF"
 # define HEX_LOW "0123456789abcdef"
@@ -85,5 +90,10 @@ void	ft_putstr(char *s, unsigned int *size);
 void	ft_putnbr(int n, unsigned int *size);
 void	ft_putnbr_base(unsigned int n, char *base, unsigned int *size);
 void	ft_putunsnbr(unsigned int n, unsigned int *size);
+
+/* --- Get Next Line --- */
+
+int	ft_buffer_clear(char *s);
+char	*get_next_line(int fd);
 
 #endif

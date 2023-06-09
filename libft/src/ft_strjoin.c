@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 08:21:56 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:53:23 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:24:45 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!new_s)
 		return (NULL);
 	i = -1;
-	while (s1[++i])
+	while (s1[++i] && s1)
 		new_s[i] = s1[i];
 	j = -1;
 	while (s2[++j])

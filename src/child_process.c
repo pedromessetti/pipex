@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/05 07:44:39 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/09 15:00:14 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	start_process(t_path *path_list, int fd[], char **envp)
 		}
 		else if (process_id == -1)
 		{
-			ft_printf("Error during fork process\n");
+			ft_printf("pipex: Error during fork process\n");
 			free_path_list(&path_list);
 			exit(EXIT_FAILURE);
 		}
