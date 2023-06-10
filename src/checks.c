@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/09 15:33:22 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/09 23:43:01 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,14 @@ int	*check_fd(int fd[], char **av, int ac)
 		ft_printf("pipex: Error opening/creating the file\n");
 		exit(EXIT_FAILURE);
 	}
-	else
+	fd[0] = open(av[1], O_RDONLY);
+	if (fd[0] == -1 || is_here_doc(av[1]))
 	{
-		fd[0] = open(av[1], O_RDONLY);
-		if (fd[0] == -1 || is_here_doc(av[1]))
-		{
-			fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
-			if (check_is_dir(av[1]) && fd[0] == -1)
-				ft_printf("pipex: (standard input) is a directory\n");
-			else if (!is_here_doc(av[1]))
-				perror(av[1]);
-		}
+		fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
+		if (check_is_dir(av[1]) && fd[0] == -1)
+			ft_printf("pipex: (standard input) is a directory\n");
+		else if (!is_here_doc(av[1]))
+			perror(av[1]);
 	}
 	return (fd);
 }

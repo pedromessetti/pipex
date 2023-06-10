@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/09 15:44:40 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/09 23:41:52 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void handle_here_doc(char *av, int fd)
 		if (buf)
 		{
 			if(ft_strlen(buf) == ft_strlen(tmp))
-				if(!ft_strncmp(tmp, buf, ft_strlen(limiter)))
+				if(ft_strncmp(tmp, buf, ft_strlen(limiter)) == 0)
 					break;
 			write(fd, buf, ft_strlen(buf));
 			free(buf);

@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:41:58 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/09 21:21:28 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/09 22:57:00 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 /* This function clears the buffer and moves 
 any remaining characters after a newline ('\\n') 
-to the beginning of the buffer. It also keeps 
-track of whether a newline was found or not. */
+to the beginning of the buffer. Also keeps 
+track of a newline was found or not. 
+Return 1 if a newline was found
+Return 0 otherwise*/
 int	ft_buffer_clear(char *s)
 {
 	int	i;
@@ -34,11 +36,11 @@ int	ft_buffer_clear(char *s)
 		s[i++] = '\0';
 	}
 
-	return (is_new_line); // Return 1 if a newline was found, 0 otherwise
+	return (is_new_line);
 }
 
-/* Reads a line from a file descriptor and
-return it as a string. */
+/* Reads a line from a file descriptor.
+Return a string. */
 char	*get_next_line(int fd)
 {
 	/* Static buffer to store characters read from the file */
