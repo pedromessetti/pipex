@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/12 10:19:37 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 15:19:59 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ static void handle_here_doc(char *av, int fd)
 	char *buf;
 	char *tmp = ft_strdup(av);
 	char *limiter = ft_strjoin(tmp, "\n");
-	free(tmp);
-	while (1) {
-		write(1, "> ", 2);
+	while (1) 
+	{
+		write(1, "pipex> ", 8);
 		buf = get_next_line(STDIN_FILENO);
 		if (buf)
 		{
-			if(ft_strncmp(limiter, buf, ft_strlen(limiter)) == 0 && (ft_strlen(buf) == ft_strlen(limiter)))
+			if (ft_strncmp(limiter, buf, ft_strlen(limiter)) == 0 && (ft_strlen(buf) == ft_strlen(limiter)))
 				break;
 			write(fd, buf, ft_strlen(buf));
 			free(buf);
 		}
 	}
+	free(tmp);
+	free(limiter);
+	free(buf);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -57,7 +60,6 @@ int	main(int ac, char **av, char **envp)
 		handle_here_doc(av[2], fd[0]);
 	path_list = define_path(path_list, ac, av, envp);
 	start_process(path_list, fd, envp);
-	//print_path_list(&path_list);
 	free_path_list(&path_list);
 	unlink(".tmp");
 	return (0);

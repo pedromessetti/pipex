@@ -6,14 +6,14 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/12 10:10:44 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 13:02:32 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../libft/inc/libft.h"
+# include "../libft/libft.h"
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdio.h>
@@ -21,7 +21,9 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/uio.h>
 # include <unistd.h>
+# include <errno.h>
 
 typedef struct t_path
 {
