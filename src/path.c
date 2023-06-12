@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/09 15:00:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/10 12:41:06 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	{
 		if (!*av[i] || ft_str_is_space(av[i]))
 		{
-			ft_printf(" %s: command not found\n", av[i]);
+			ft_printf("pipex: %s: command not found\n", av[i]);
 			if (i == ac - 2)
 			{
 				free_path_list(&path_list);

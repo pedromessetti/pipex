@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/05 07:44:21 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 10:10:44 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void				check_ac(int ac);
 int					*check_fd(int fd[], char **av, int ac);
 int					check_builtin(char *av);
 void				check_exit_status(t_path *path_list);
+int					is_here_doc(char *s);
 
 /* --- Utils Functions --- */
 

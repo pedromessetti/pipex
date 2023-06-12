@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/09 23:43:01 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 10:10:18 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_is_dir(char *s)
 	return (0);
 }
 
-static int is_here_doc(char *s)
+int is_here_doc(char *s)
 {
 	if (((ft_strncmp(s, "here_doc\0", ft_strlen("here_doc") + 1)) == 0))
 		return (1);

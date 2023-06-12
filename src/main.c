@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/09 23:41:52 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 10:19:37 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ static void handle_here_doc(char *av, int fd)
 	char *limiter = ft_strjoin(tmp, "\n");
 	free(tmp);
 	while (1) {
-		write(1, ">", 1);
-		buf = get_next_line(0);
+		write(1, "> ", 2);
+		buf = get_next_line(STDIN_FILENO);
 		if (buf)
 		{
-			if(ft_strlen(buf) == ft_strlen(tmp))
-				if(ft_strncmp(tmp, buf, ft_strlen(limiter)) == 0)
-					break;
+			if(ft_strncmp(limiter, buf, ft_strlen(limiter)) == 0 && (ft_strlen(buf) == ft_strlen(limiter)))
+				break;
 			write(fd, buf, ft_strlen(buf));
 			free(buf);
 		}
@@ -54,7 +53,7 @@ int	main(int ac, char **av, char **envp)
 	path_list = NULL;
 	check_ac(ac);
 	check_fd(fd, av, ac);
-	if (((ft_strncmp(av[1], "here_doc\0", ft_strlen("here_doc") + 1)) == 0))
+	if (is_here_doc(av[1]))
 		handle_here_doc(av[2], fd[0]);
 	path_list = define_path(path_list, ac, av, envp);
 	start_process(path_list, fd, envp);

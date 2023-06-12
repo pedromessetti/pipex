@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:41:58 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/09 22:57:00 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 10:29:27 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,11 @@ int	ft_buffer_clear(char *s)
 }
 
 /* Reads a line from a file descriptor.
-Return a string. */
+Return the read line as a string. */
 char	*get_next_line(int fd)
 {
-	/* Static buffer to store characters read from the file */
 	static char	buf[BUFFER_SIZE + 1];
-	/* Pointer to the line being read */
 	char		*line;
-	/* Number of bytes read from the file */
 	int			read_bytes;
 
 	if (fd == -1 || BUFFER_SIZE < 1)
@@ -72,11 +69,13 @@ char	*get_next_line(int fd)
 	/* Read from the file until a newline or the end of the file. */
 	while (read_bytes)
 	{
-		line = ft_strjoin(line, buf); // Join the contents of the buffer with the line
+		/* Join the contents of the buffer with the line */
+		line = ft_strjoin(line, buf);
 		/* If a newline was found in the buffer, break out of the loop */
 		if (ft_buffer_clear(buf))
 			break ;
-		read_bytes = read(fd, buf, BUFFER_SIZE); // Read from the file descriptor into the buffer
+		/* Read from the file descriptor into the buffer */
+		read_bytes = read(fd, buf, BUFFER_SIZE);
 	}
 
 	return (line);
