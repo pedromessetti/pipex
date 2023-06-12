@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 08:21:56 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/12 11:58:03 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 14:52:16 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@ of s1 and s2, or NULL if the allocation fails.*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_s;
-	size_t	i;
-	size_t	j;
+	size_t	len_s1;
+	size_t	len_s2;
 
-	new_s = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	new_s = ft_calloc((len_s1 + len_s2 + 1), sizeof (char));
 	if (!new_s)
 		return (NULL);
-	i = -1;
-	while (s1[++i] && s1)
-		new_s[i] = s1[i];
-	j = -1;
-	while (s2[++j])
-		new_s[i++] = s2[j];
-	new_s[i] = '\0';
+	if (s1)
+		ft_strlcpy(new_s, s1, len_s1 + 1);
+	if (s2)
+		ft_strlcat(new_s, s2, len_s1 + len_s2 + 1);
 	return (new_s);
 }
 
