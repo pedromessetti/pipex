@@ -6,15 +6,15 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 08:21:56 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/12 14:52:16 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 16:44:05 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*Allocates memory with malloc() and returns a new
+/* Allocates memory with malloc() and returns a new
 string, which is the result of the concatenation
-of s1 and s2, or NULL if the allocation fails.*/
+of s1 and s2, or NULL if the allocation fails. */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_s;
@@ -32,14 +32,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strlcat(new_s, s2, len_s1 + len_s2 + 1);
 	return (new_s);
 }
-
-// int main(void)
-// {
-// 	char const *s1 = "Hello ";
-// 	char const *s2 = "World!";
-
-// 	printf("s1: %s\n", s1);
-// 	printf("s2: %s\n", s2);
-// 	printf("new_s: %s\n", ft_strjoin(s1, s2));
-// 	return (0);
-// }

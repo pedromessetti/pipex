@@ -6,79 +6,84 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:41:58 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/12 14:43:20 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 17:54:32 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include "libft.h"
-
-/* This function clears the buffer and moves 
-any remaining characters after a newline ('\\n') 
-to the beginning of the buffer. Also keeps 
-track of a newline was found or not. 
-Return 1 if a newline was found
-Return 0 otherwise*/
-int	ft_buffer_clear(char *s)
+static int	find_i(char *saved)
 {
 	int	i;
-	int	j;
-	int	is_new_line;
 
-	i = 0;
-	j = 0;
-	is_new_line = 0;
-	while (s[i])
-	{
-		if (is_new_line)
-			s[j++] = s[i];
-		if (s[i] == '\n')
-			is_new_line = 1;
-		s[i++] = '\0';
-	}
-
-	return (is_new_line);
+	i = -1;
+	while (saved[++i])
+		if (saved[i] == '\n')
+			return (i);
+	return (0);
 }
 
-/* Reads a line from a file descriptor.
-Return the read line as a string. */
+static int	has_new_line(char *saved)
+{
+	int	i;
+
+	i = -1;
+	while (saved[++i])
+		if (saved[i] == '\n')
+			return (1);
+	return (0);
+}
+
+static char	*return_line(char **saved)
+{
+	int		i;
+	char	*line;
+	char	*temp;
+
+	if (!*saved || **saved == '\0')
+		return (NULL);
+	i = find_i(*saved);
+	if (has_new_line(*saved))
+	{
+		line = ft_substr(*saved, 0, i + 1);
+		temp = ft_substr(*saved, i + 1, ft_strlen(*saved));
+		free(*saved);
+		*saved = temp;
+		if (**saved != '\0')
+			return (line);
+	}
+	else
+		line = ft_strdup(*saved);
+	free(*saved);
+	*saved = NULL;
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	buf[BUFFER_SIZE + 1];
-	char		*line;
-	int			read_bytes;
+	char		*buf;
+	static char	*saved[OPEN_MAX];
+	char		*temp;
+	int			ret;
 
-	if (fd == -1 || BUFFER_SIZE < 1)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1)
 		return (NULL);
-
-	line = ft_strjoin(0, buf);
-	
-	/* If a newline was found in the buffer, return the line without reading from the file further. */
-	if (ft_buffer_clear(buf))
-		return (line);
-
-	/* Read from the file descriptor into the buffer. */
-	read_bytes = read(fd, buf, BUFFER_SIZE);
-
-	/* If an error occurred during the read operation, free the line and return NULL. */
-	if (read_bytes < 0)
-	{
-		free(line);
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
 		return (NULL);
-	}
-
-	/* Read from the file until a newline or the end of the file. */
-	while (read_bytes)
+	ret = read(fd, buf, BUFFER_SIZE);
+	while (ret > 0)
 	{
-		/* Join the contents of the buffer with the line */
-		line = ft_strjoin(line, buf);
-		/* If a newline was found in the buffer, break out of the loop */
-		if (ft_buffer_clear(buf))
+		buf[ret] = '\0';
+		if (saved[fd] == NULL)
+			saved[fd] = ft_strdup("");
+		temp = ft_strjoin(saved[fd], buf);
+		free(saved[fd]);
+		saved[fd] = temp;
+		if (has_new_line(saved[fd]))
 			break ;
-		/* Read from the file descriptor into the buffer */
-		read_bytes = read(fd, buf, BUFFER_SIZE);
+		ret = read(fd, buf, BUFFER_SIZE);
 	}
-
-	return (line);
+	free(buf);
+	return (return_line(&saved[fd]));
 }

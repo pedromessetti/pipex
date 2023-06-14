@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:33:25 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/12 12:58:32 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/12 17:16:08 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 /* --- Dependencies Libs --- */
 
+# include <fcntl.h>
 # include <stdarg.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
 
 /* --- Macro Variables --- */
 
@@ -62,6 +62,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 int		ft_str_is_space(char *s);
+char	*ft_strcpy(char *dst, const char *src);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 
 /* --- Memory functions --- */
 
@@ -97,7 +99,7 @@ void	ft_putunsnbr(unsigned int n, unsigned int *size);
 
 /* --- Get Next Line --- */
 
-int	ft_buffer_clear(char *s);
+int		ft_buffer_clear(char *s);
 char	*get_next_line(int fd);
 
 #endif

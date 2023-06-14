@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 10:21:26 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:50:03 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/14 09:04:06 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ char	**ft_split(char const *s, char c)
 	int		i;
 	int		j;
 
+	if (!*s)
+		return (NULL);
 	new_s = (char **)malloc((ft_mem(s, c) + 1) * sizeof(char **));
-	if (!new_s || !s)
+	if (!new_s)
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -80,16 +82,3 @@ char	**ft_split(char const *s, char c)
 	new_s[j] = 0;
 	return (new_s);
 }
-
-// int	main(void)
-// {
-// 	char const *s =  "            ";
-// 	char c = ' ';
-// 	char **result = ft_split(s, ' ');
-
-// 	printf("string:%s:\n", s);
-// 	printf("char:%c:\n", c);
-// 	int i = -1;
-// 	while (result[++i])
-// 		printf("array of strings:%s:\n", result[i]);
-// }
