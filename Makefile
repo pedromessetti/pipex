@@ -9,9 +9,9 @@ NAME = pipex
 
 CC = cc
 
-CFLAGS =  -g -I inc -fsanitize=address
+CFLAGS =  -g -I inc #-fsanitize=address
 
-SRCS = src/main.c src/path.c src/list_utils.c src/checks.c src/ft_utils.c src/child_process.c
+SRCS = src/main.c src/path.c src/list_utils.c src/checks.c src/ft_utils.c src/child_process.c src/here_doc.c
 
 OBJS = $(SRCS:.c=.o)
 

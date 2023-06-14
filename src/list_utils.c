@@ -6,14 +6,14 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/27 10:22:39 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:52:40 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*Checks if the path_list is empity, if it is, add a new path to the top,
-	else add a new path in the end*/
+/* Checks if the path_list is empity, if it is, add a new path to the top,
+else add a new path in the end */
 t_path	*set_path_list(t_path *path_list, char *path, char **path_and_cmd)
 {
 	t_path	*new_list;
@@ -30,26 +30,28 @@ t_path	*set_path_list(t_path *path_list, char *path, char **path_and_cmd)
 }
 
 /* Free the allocated memory for the paths_list */
-void	free_path_list(t_path **paths_list)
+void	free_path_list(t_path **path_list)
 {
 	t_path	*tmp;
 
 	tmp = NULL;
-	if (!*paths_list)
+	if (!*path_list)
 		return ;
-	while (*paths_list)
+	while ((*path_list)->prev)
+		*path_list = (*path_list)->prev;
+	while (*path_list)
 	{
-		tmp = (*paths_list)->next;
-		if ((*paths_list)->path_and_cmd[0])
-			free_matrix((*paths_list)->path_and_cmd);
-		if (!(*paths_list)->path)
-			free((*paths_list)->path);
-		free(*paths_list);
-		*paths_list = tmp;
+		tmp = (*path_list)->next;
+		if ((*path_list)->path_and_cmd)
+			free_matrix((*path_list)->path_and_cmd);
+		if (!(*path_list)->path)
+			free((*path_list)->path);
+		free(*path_list);
+		*path_list = tmp;
 	}
 }
 
-/*Add a new node at the beginning of the paths_list*/
+/* Add a new node at the beginning of the paths_list */
 t_path	*add_path(char *path, char **path_and_cmd)
 {
 	t_path	*new_path;
@@ -64,7 +66,7 @@ t_path	*add_path(char *path, char **path_and_cmd)
 	return (new_path);
 }
 
-/*Add a new node at the end of the cost paths_list*/
+/* Add a new node at the end of the cost paths_list */
 void	add_tail(t_path **list_head, t_path *new_path)
 {
 	t_path	*last;
@@ -81,7 +83,7 @@ void	add_tail(t_path **list_head, t_path *new_path)
 	}
 }
 
-/*Iterates into the cost paths_list and returns the last node*/
+/* Iterates into the cost paths_list and returns the last node */
 t_path	*find_last(t_path *paths_list)
 {
 	if (!paths_list)

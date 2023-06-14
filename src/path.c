@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/10 12:41:06 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:49:13 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 	int		i;
 
 	i = 1;
-	if (((ft_strncmp(av[1], "here_doc\0", ft_strlen("here_doc") + 1)) == 0))
+	if (is_here_doc(av[1]))
 		i = 2;
 	while (av[++i] && i < ac - 1)
 	{
@@ -96,8 +96,9 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 			{
 				free_path_list(&path_list);
 				unlink(".tmp");
-				//exit(EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			}
+			path_list = set_path_list(path_list, NULL, NULL);
 		}
 		else
 		{
