@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/14 14:38:22 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/15 19:17:26 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ t_path				*absolute_path(t_path *path_list, char *av,
 						char **path_and_cmd);
 t_path				*define_path(t_path *path_list, int ac, char **av,
 						char **envp);
+t_path				*handle_str_error(char **av, int i, int ac,
+						t_path *path_list);
+t_path				*choose_handle(char *av, char **envp, t_path *path_list);
 
 /* --- List Functions --- */
 
@@ -57,7 +60,7 @@ t_path				*set_path_list(t_path *path_list, char *path,
 
 /* --- Child Process Functions --- */
 
-void				child_process(t_path *path_list, char **envp);
+void				child_process(t_path *path_list, char **envp, int fd[]);
 void				bind_stds(t_path *curr, int fd[]);
 int					start_process(t_path *path_list, int fd[], char **envp,
 						char **av);
@@ -69,7 +72,11 @@ int					*check_fd(int fd[], char **av, int ac);
 int					check_builtin(char *av);
 void				check_exit_status(t_path *path_list);
 int					is_dir(char *s);
+
+/* --- Heredoc Functions --- */
+
 int					is_here_doc(char *s);
+int					is_limiter(char *limiter, char *buf);
 void				handle_here_doc(char *av, int fd[], t_path *path_list);
 
 /* --- Utils Functions --- */

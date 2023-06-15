@@ -6,25 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/14 15:09:07 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/15 10:53:44 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/*static void	print_path_list(t_path **paths_list)
-{
-	t_path	*curr;
-
-	curr = *paths_list;
-	while (curr)
-	{
-		printf("path => %s\n", curr->path);
-		for (int i = 0; curr->path_and_cmd[i]; i++)
-			printf("path_and_cmd[%d] => %s\n", i, curr->path_and_cmd[i]);
-		curr = curr->next;
-	}
-}*/
 
 int	main(int ac, char **av, char **envp)
 {

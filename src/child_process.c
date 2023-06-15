@@ -6,18 +6,19 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/14 14:50:52 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/15 19:18:13 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_process(t_path *path_list, char **envp)
+void	child_process(t_path *path_list, char **envp, int fd[])
 {
 	char	*tmp;
-
-	if (tmp = ft_strnstr(path_list->path, "/exit\0",
-			ft_strlen(path_list->path)))
+		
+	tmp = ft_strnstr(path_list->path, "/exit\0", ft_strlen(path_list->path));
+	bind_stds(path_list, fd);
+	if (tmp)
 		if (check_builtin(++tmp))
 			check_exit_status(path_list);
 	if (path_list->path)
@@ -26,6 +27,14 @@ void	child_process(t_path *path_list, char **envp)
 	close(path_list->dup2_fd[1]);
 	free_path_list(&path_list);
 	exit(EXIT_FAILURE);
+}
+
+void	close_fds(int fd[], int pipe_fd[])
+{
+	close(fd[0]);
+	close(fd[1]);
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }
 
 void	bind_stds(t_path *curr, int fd[])
@@ -54,10 +63,21 @@ void	bind_stds(t_path *curr, int fd[])
 		if (curr->dup2_fd[1] != -1)
 			close(curr->pipe_fd[1]);
 	}
-	close(fd[0]);
-	close(fd[1]);
-	close(curr->pipe_fd[0]);
-	close(curr->pipe_fd[1]);
+	close_fds(fd, curr->pipe_fd);
+}
+
+void	ft_wait(t_path *path_list, int exit_status)
+{
+	t_path *curr;
+	
+	curr = path_list;
+	while (curr)
+	{
+		waitpid(curr->pid, &exit_status, 0);
+		if (WIFEXITED(exit_status))
+			exit_status = WEXITSTATUS(exit_status);
+		curr = curr->next;
+	}
 }
 
 int	start_process(t_path *path_list, int fd[], char **envp, char **av)
@@ -71,15 +91,14 @@ int	start_process(t_path *path_list, int fd[], char **envp, char **av)
 	while (curr)
 	{
 		if (pipe(curr->pipe_fd) == -1)
-			return 1;
+			return (1);
 		if (is_here_doc(av[1]) && !curr->prev)
 			handle_here_doc(av[2], fd, curr);
 		process_id = fork();
 		curr->pid = process_id;
 		if (process_id == 0)
 		{
-			bind_stds(curr, fd);
-			child_process(curr, envp);
+			child_process(curr, envp, fd);
 			return (1);
 		}
 		else if (process_id == -1)
@@ -100,13 +119,7 @@ int	start_process(t_path *path_list, int fd[], char **envp, char **av)
 		close(curr->pipe_fd[1]);
 		curr = curr->next;
 	}
-	curr = path_list;
-	while (curr)
-	{
-		waitpid(curr->pid, &exit_status, 0);
-		if (WIFEXITED(exit_status))
-			exit_status = WEXITSTATUS(exit_status);
-		curr = curr->next;
-	}
+	ft_wait(path_list, exit_status);
 	return (exit_status);
 }
+
