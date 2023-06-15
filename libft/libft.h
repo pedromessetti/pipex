@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:33:25 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/12 17:16:08 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/14 22:47:01 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
-int		ft_str_is_space(char *s);
+int		ft_str_error(char *s);
 char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 
