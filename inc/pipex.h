@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/15 19:17:26 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:43:31 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -41,8 +40,6 @@ typedef struct s_path
 char				**set_possible_paths(char **envp);
 t_path				*find_path(t_path *path_list, char **possible_paths,
 						char *av, char **path_and_cmd);
-t_path				*absolute_path(t_path *path_list, char *av,
-						char **path_and_cmd);
 t_path				*define_path(t_path *path_list, int ac, char **av,
 						char **envp);
 t_path				*handle_str_error(char **av, int i, int ac,
@@ -62,6 +59,8 @@ t_path				*set_path_list(t_path *path_list, char *path,
 
 void				child_process(t_path *path_list, char **envp, int fd[]);
 void				bind_stds(t_path *curr, int fd[]);
+void				close_fds(int fd[], t_path *curr, int opt);
+int					ft_wait(t_path *curr);
 int					start_process(t_path *path_list, int fd[], char **envp,
 						char **av);
 
@@ -77,7 +76,7 @@ int					is_dir(char *s);
 
 int					is_here_doc(char *s);
 int					is_limiter(char *limiter, char *buf);
-void				handle_here_doc(char *av, int fd[], t_path *path_list);
+void				handle_here_doc(char *av, int fd[]);
 
 /* --- Utils Functions --- */
 
@@ -85,5 +84,6 @@ void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
 int					str_is_num(char *s);
+int					ft_str_error(char *s);
 
 #endif

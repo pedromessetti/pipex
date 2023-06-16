@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:33:45 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/15 17:57:35 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:55:35 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,22 @@ int	is_limiter(char *limiter, char *buf)
 	return (0);
 }
 
-void	handle_here_doc(char *av, int fd[], t_path *path_list)
+void	final_free(char *tmp, char *buf, char *limiter)
+{
+	free(tmp);
+	free(limiter);
+	free(buf);
+}
+
+void	handle_here_doc(char *av, int fd[])
 {
 	char	*buf;
 	char	*tmp;
 	char	*limiter;
 	int		heredoc_pipe[2];
 
-	pipe(heredoc_pipe);
+	if (pipe(heredoc_pipe) == -1)
+		exit(EXIT_FAILURE);
 	fd[0] = heredoc_pipe[0];
 	tmp = ft_strdup(av);
 	limiter = ft_strjoin(tmp, "\n");
@@ -51,7 +59,5 @@ void	handle_here_doc(char *av, int fd[], t_path *path_list)
 		}
 	}
 	close(heredoc_pipe[1]);
-	free(tmp);
-	free(limiter);
-	free(buf);
+	final_free(tmp, buf, limiter);
 }

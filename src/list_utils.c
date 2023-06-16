@@ -6,14 +6,14 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/14 14:52:40 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:40:08 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/* Checks if the path_list is empity, if it is, add a new path to the top,
-else add a new path in the end */
+/*Checks if the path_list is empity, if it is, add a new path to the top,
+else add a new path in the end*/
 t_path	*set_path_list(t_path *path_list, char *path, char **path_and_cmd)
 {
 	t_path	*new_list;
@@ -29,7 +29,7 @@ t_path	*set_path_list(t_path *path_list, char *path, char **path_and_cmd)
 	return (path_list);
 }
 
-/* Free the allocated memory for the paths_list */
+/*Free the allocated memory for the paths_list*/
 void	free_path_list(t_path **path_list)
 {
 	t_path	*tmp;
@@ -51,7 +51,7 @@ void	free_path_list(t_path **path_list)
 	}
 }
 
-/* Add a new node at the beginning of the paths_list */
+/*Add a new node at the beginning of the paths_list*/
 t_path	*add_path(char *path, char **path_and_cmd)
 {
 	t_path	*new_path;
@@ -66,7 +66,7 @@ t_path	*add_path(char *path, char **path_and_cmd)
 	return (new_path);
 }
 
-/* Add a new node at the end of the cost paths_list */
+/*Add a new node at the end of the cost paths_list*/
 void	add_tail(t_path **list_head, t_path *new_path)
 {
 	t_path	*last;
@@ -83,7 +83,7 @@ void	add_tail(t_path **list_head, t_path *new_path)
 	}
 }
 
-/* Iterates into the cost paths_list and returns the last node */
+/*Iterates into the cost paths_list and returns the last node*/
 t_path	*find_last(t_path *paths_list)
 {
 	if (!paths_list)

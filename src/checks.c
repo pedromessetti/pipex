@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/14 10:26:08 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:15:14 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void	check_ac(int ac)
 
 int	is_dir(char *s)
 {
-	if (!(ft_strncmp(s, "/", 1)) || !(ft_strncmp(s, "./", 2)))
-		if (access(s, F_OK) != -1)
-			return (1);
+	if ((ft_strncmp(s, "/", 1)) == 0 || (ft_strncmp(s, "./", 2)) == 0)
+		return (1);
 	return (0);
 }
 
@@ -50,10 +49,7 @@ int	*check_fd(int fd[], char **av, int ac)
 		if (fd[0] == -1)
 		{
 			fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
-			if (is_dir(av[1]) && fd[0] == -1)
-				ft_printf("pipex: (standard input) is a directory\n");
-			else
-				perror(av[1]);
+			perror(av[1]);
 		}
 	}
 	return (fd);

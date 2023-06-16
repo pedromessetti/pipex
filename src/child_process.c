@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/15 19:18:13 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:16:36 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	child_process(t_path *path_list, char **envp, int fd[])
 {
 	char	*tmp;
-		
+
 	tmp = ft_strnstr(path_list->path, "/exit\0", ft_strlen(path_list->path));
 	bind_stds(path_list, fd);
 	if (tmp)
@@ -29,12 +29,28 @@ void	child_process(t_path *path_list, char **envp, int fd[])
 	exit(EXIT_FAILURE);
 }
 
-void	close_fds(int fd[], int pipe_fd[])
+void	close_fds(int fd[], t_path *curr, int opt)
 {
-	close(fd[0]);
-	close(fd[1]);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	if (opt)
+	{
+		close(fd[0]);
+		close(fd[1]);
+		close(curr->pipe_fd[0]);
+		close(curr->pipe_fd[1]);
+	}
+	else
+	{
+		if (!curr->prev)
+			close(fd[0]);
+		else
+			close(curr->prev->pipe_fd[0]);
+		if (!curr->next)
+		{
+			close(fd[1]);
+			close(curr->pipe_fd[0]);
+		}
+		close(curr->pipe_fd[1]);
+	}
 }
 
 void	bind_stds(t_path *curr, int fd[])
@@ -63,14 +79,14 @@ void	bind_stds(t_path *curr, int fd[])
 		if (curr->dup2_fd[1] != -1)
 			close(curr->pipe_fd[1]);
 	}
-	close_fds(fd, curr->pipe_fd);
+	close_fds(fd, curr, 1);
 }
 
-void	ft_wait(t_path *path_list, int exit_status)
+int	ft_wait(t_path *curr)
 {
-	t_path *curr;
-	
-	curr = path_list;
+	int	exit_status;
+
+	exit_status = 0;
 	while (curr)
 	{
 		waitpid(curr->pid, &exit_status, 0);
@@ -78,48 +94,34 @@ void	ft_wait(t_path *path_list, int exit_status)
 			exit_status = WEXITSTATUS(exit_status);
 		curr = curr->next;
 	}
+	return (exit_status);
 }
 
 int	start_process(t_path *path_list, int fd[], char **envp, char **av)
 {
 	pid_t	process_id;
 	t_path	*curr;
-	int		exit_status;
 
-	exit_status = 0;
 	curr = path_list;
 	while (curr)
 	{
 		if (pipe(curr->pipe_fd) == -1)
 			return (1);
 		if (is_here_doc(av[1]) && !curr->prev)
-			handle_here_doc(av[2], fd, curr);
+			handle_here_doc(av[2], fd);
 		process_id = fork();
 		curr->pid = process_id;
 		if (process_id == 0)
-		{
 			child_process(curr, envp, fd);
-			return (1);
-		}
 		else if (process_id == -1)
 		{
 			ft_printf("pipex: Error during fork process\n");
 			free_path_list(&path_list);
 			exit(EXIT_FAILURE);
 		}
-		if (!curr->prev)
-			close(fd[0]);
-		else
-			close(curr->prev->pipe_fd[0]);
-		if (!curr->next)
-		{
-			close(fd[1]);
-			close(curr->pipe_fd[0]);
-		}
-		close(curr->pipe_fd[1]);
+		close_fds(fd, curr, 0);
 		curr = curr->next;
 	}
-	ft_wait(path_list, exit_status);
-	return (exit_status);
+	curr = path_list;
+	return (ft_wait(curr));
 }
-
