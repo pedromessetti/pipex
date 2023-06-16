@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:24:57 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/05 07:44:05 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:34:36 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*new_strjoin(char const *s1, char const *s2, char const *s3)
 	return (new_s);
 }
 
-/*Function to free the allocated memory for a bidimensional array*/
+/*Free the allocated memory for a bidimensional array*/
 void	free_matrix(char **matrix)
 {
 	int	i;
@@ -62,5 +62,22 @@ int	str_is_num(char *s)
 	while (s[++i])
 		if (!ft_isnum(s[i]))
 			return (0);
+	return (1);
+}
+
+/*
+Return 1 if the str has only spaces or tabs
+Return 0 if the str has other chars
+*/
+int	ft_str_error(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] != ' ' && s[i] != '\t')
+			return (0);
+	}
 	return (1);
 }
