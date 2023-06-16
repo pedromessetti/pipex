@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:15:14 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 18:58:47 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	check_ac(int ac)
 {
@@ -32,25 +32,17 @@ int	is_dir(char *s)
 
 int	*check_fd(int fd[], char **av, int ac)
 {
-	int	flags;
-
-	flags = O_CREAT | O_WRONLY | O_TRUNC;
-	if (is_here_doc(av[1]))
-		flags = O_CREAT | O_WRONLY | O_APPEND;
-	fd[1] = open(av[ac - 1], flags, 0644);
+	fd[1] = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd[1] == -1)
 	{
 		ft_printf("pipex: Error opening/creating the file\n");
 		exit(EXIT_FAILURE);
 	}
-	if (!is_here_doc(av[1]))
+	fd[0] = open(av[1], O_RDONLY);
+	if (fd[0] == -1)
 	{
-		fd[0] = open(av[1], O_RDONLY);
-		if (fd[0] == -1)
-		{
-			fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
-			perror(av[1]);
-		}
+		fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
+		perror(av[1]);
 	}
 	return (fd);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_utils_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:24:57 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:34:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 17:49:35 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex_bonus.h"
 
 /*Updated version of strjoin for join 3 strings*/
 char	*new_strjoin(char const *s1, char const *s2, char const *s3)

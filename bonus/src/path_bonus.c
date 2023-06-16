@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   path_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:41:04 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 17:49:15 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex_bonus.h"
 
 /*Set and returns a array of possible paths by iterate into envp untill
 find the PATH variable and split the result by the ':'*/

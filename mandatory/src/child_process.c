@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:16:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 18:55:37 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	child_process(t_path *path_list, char **envp, int fd[])
 {
@@ -97,7 +97,8 @@ int	ft_wait(t_path *curr)
 	return (exit_status);
 }
 
-int	start_process(t_path *path_list, int fd[], char **envp, char **av)
+/**/
+int	start_process(t_path *path_list, int fd[], char **envp)
 {
 	pid_t	process_id;
 	t_path	*curr;
@@ -107,8 +108,6 @@ int	start_process(t_path *path_list, int fd[], char **envp, char **av)
 	{
 		if (pipe(curr->pipe_fd) == -1)
 			return (1);
-		if (is_here_doc(av[1]) && !curr->prev)
-			handle_here_doc(av[2], fd);
 		process_id = fork();
 		curr->pid = process_id;
 		if (process_id == 0)

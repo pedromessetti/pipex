@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   list_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:27 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:40:08 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/16 17:49:28 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex_bonus.h"
 
 /*Checks if the path_list is empity, if it is, add a new path to the top,
 else add a new path in the end*/
