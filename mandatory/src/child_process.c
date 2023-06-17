@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 18:55:37 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/17 07:07:56 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	ft_wait(t_path *curr)
 	return (exit_status);
 }
 
-/**/
 int	start_process(t_path *path_list, int fd[], char **envp)
 {
 	pid_t	process_id;

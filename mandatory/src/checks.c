@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 18:58:47 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/17 07:07:26 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 void	check_ac(int ac)
 {
-	if (ac >= 5)
+	if (ac == 5)
 		return ;
 	if (ac < 5)
 	{
 		ft_printf("pipex: too few arguments\n");
+		exit(EXIT_FAILURE);
+	}
+	if (ac > 5)
+	{
+		ft_printf("pipex: too many arguments\n");
+		ft_printf("Run `make bonus` for handle multiple pipes\n");
 		exit(EXIT_FAILURE);
 	}
 }
