@@ -6,7 +6,7 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/18 15:38:51 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/18 15:49:47 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_path	*handle_str_error(char **av, int i, int ac, t_path *path_list)
 	if (i == ac - 2 && !is_here_doc(av[1]))
 	{
 		free_path_list(&path_list);
-		unlink(".tmp");
 		exit(EXIT_FAILURE);
 	}
 	path_list = set_path_list(path_list, NULL, NULL);
