@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:37:09 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:06:33 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:59:33 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (p);
 }
-
-// int	main(void)
-// {
-// 	char p[12] = "Hello World";
-// 	int c = '-';
-
-// 	printf("before:%s:\n", p);
-// 	ft_memset(p, c, 10);
-// 	printf("after:%s:\n", p);
-// }

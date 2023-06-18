@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 19:30:10 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/31 09:41:09 by pedro            ###   ########.fr       */
+/*   Created: 2023/04/11 19:30:24 by pmessett          #+#    #+#             */
+/*   Updated: 2023/06/18 12:59:49 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*Convert a string to an integer.*/
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	sign;
-	int	result;
+/*Allocates memory for a duplicate of s with malloc().
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '+')
-		i++;
-	else if (nptr[i] == '-')
-	{
-		sign = -1;
-		i++;
-	}
-	while (ft_isnum(nptr[i]))
-	{
-		result *= 10;
-		result += nptr[i] - 48;
-		i++;
-	}
-	return (result * sign);
+Returns a pointer to a new string which
+is a duplicate of the string s.*/
+char	*ft_strdup(const char *s)
+{
+	char	*dst;
+	int		i;
+
+	if (!s)
+		return (NULL);
+	dst = malloc(ft_strlen(s) + 1);
+	if (!dst)
+		return (NULL);
+	i = -1;
+	while (s[++i])
+		dst[i] = s[i];
+	dst[i] = '\0';
+	return (dst);
 }

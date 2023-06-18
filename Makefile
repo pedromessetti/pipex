@@ -11,10 +11,11 @@ NAME = pipex
 
 # Compiler options
 CC = cc
-CFLAGS = -I inc -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+LDFLAGS = -I inc/ -g
 
 # Source and object files
-SRCS = src/main.c src/path.c src/list_utils.c src/checks.c src/ft_utils.c src/child_process.c src/here_doc.c
+SRCS =	$(wildcard ./src/*.c)
 OBJS = $(SRCS:.c=.o)
 
 # Formatting characters
@@ -27,11 +28,11 @@ $(NAME):	$(OBJS)
 	if [ ! -f ./libft/libft.a ]; then \
 		$(MAKE) run -C ./libft/; \
 	fi
-	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME)
-	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
+	$(CC) $(LDFLAGS) $(CFLAGS) $(OBJS) ./libft/libft.a  -o $(NAME)
+	echo "\\n$(GREEN)$(REPEATED_CHARS)$(RESET)" 
 	echo "$(WHITE)	$(NAME)"
 	echo "$(GREEN)$(REPEATED_CHARS)$(RESET)" 
-	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)"
+	echo "$(GREEN)SUCCESSFULLY COMPILED$(RESET)\\n"
 
 # Build pipex executable
 all: $(NAME)
@@ -42,7 +43,7 @@ clean:
 
 # Clean object files and the executable
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) ./libft/libft.a
 
 # Rebuild the project
 re: fclean all
@@ -53,7 +54,7 @@ run: re
 
 # Show help message
 help:
-	echo "Usage: make [target]"
+	echo "\\nUsage: make [target]"
 	echo ""
 	echo "Targets:"
 	echo "  all        Build the pipex executable"

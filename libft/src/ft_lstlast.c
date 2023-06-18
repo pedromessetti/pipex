@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 16:57:12 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:04:25 by pmessett         ###   ########.fr       */
+/*   Created: 2023/04/16 08:53:35 by pmessett          #+#    #+#             */
+/*   Updated: 2023/04/16 08:59:33 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*Copies n bytes from memory area src to
-memory area dest.
-
-Returns a pointer to dest.*/
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t		i;
-	const char	*memsrc;
-	char		*memdest;
-
-	if (!dest && !src)
+	if (!lst)
 		return (NULL);
-	i = 0;
-	memsrc = (const char *)src;
-	memdest = (char *)dest;
-	while (i < n)
-	{
-		memdest[i] = memsrc[i];
-		i++;
-	}
-	return (dest);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

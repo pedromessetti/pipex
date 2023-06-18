@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:39:57 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 15:41:46 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:00:13 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	strim = ft_substr(s1, start, (end - start));
 	return (strim);
 }
-
-// int	main(void)
-// {
-// 	char const *s1 = "abcHello-Worldabc";
-// 	char const *set = "abc";
-
-// 	printf("string:%s:\n", s1);
-// 	printf("set of char:%s:\n", set);
-// 	printf("string trimmed:%s:\n", ft_strtrim(s1, set));
-// }

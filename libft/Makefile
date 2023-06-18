@@ -1,41 +1,56 @@
 .SILENT:
 
-# Color variables
+# Color variables for terminal output
 RED = \033[1;31m
 GREEN = \033[1;32m
 WHITE = \033[1;37m
 RESET = \033[0m
 
+# Library name
 NAME = libft.a
 
-CC = cc
-
+# Create library
 CME = ar -rcs
 
+# Compiler flags
 CFLAGS = -Wall -Wextra -Werror -g -I inc
 
-SRCS = ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isnum.c ft_isprint.c ft_isalpha.c \
-ft_tolower.c ft_toupper.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlcat.c \
-ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strtrim.c ft_substr.c  ft_strchr.c \
-ft_strrchr.c ft_strmapi.c ft_striteri.c ft_strnstr.c ft_bzero.c ft_memcpy.c \
-ft_memset.c ft_memmove.c ft_memchr.c ft_memcmp.c ft_calloc.c ft_atoi.c \
-ft_itoa.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putnbr_base_fd.c \
-ft_printf.c ft_printf_utils.c get_next_line.c ft_strncpy.c ft_strcpy.c
-
+# Source and object files
+SRCS =	$(wildcard ./src/*.c)
 OBJS = $(SRCS:.c=.o)
 
-all:	$(NAME)
-
+# Default target
 $(NAME):	$(OBJS)
 	$(CME) $(NAME) $(OBJS)
 	echo "$(GREEN)[OK] $(WHITE)$(NAME)$(RESET)" 
 
+# Build library
+all:	$(NAME)
+
+# Remove object files
 clean:
 	rm -f $(OBJS)
 
+# Remove object files and library
 fclean:	clean
 	rm -f $(NAME) 
 
+# Rebuild library
 re:	fclean all
 
-run: all clean
+# Rebuild library and remove object files
+run: re 
+	$(MAKE) clean
+
+# Show help message
+help:
+	echo "\\nUsage: make [target]"
+	echo ""
+	echo "Targets:"
+	echo "  all        Build library"
+	echo "  clean      Remove object files"
+	echo "  fclean     Remove object files and $(NAME)"
+	echo "  re         Rebuild library"
+	echo "  run        Rebuild library and remove object files"
+
+.PHONY: all clean fclean re

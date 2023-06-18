@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:36 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:15:14 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/18 14:35:15 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	check_ac(int ac)
 {
@@ -48,8 +48,8 @@ int	*check_fd(int fd[], char **av, int ac)
 		fd[0] = open(av[1], O_RDONLY);
 		if (fd[0] == -1)
 		{
-			fd[0] = open(".tmp", O_CREAT | O_RDONLY, 0444);
 			perror(av[1]);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (fd);
@@ -68,7 +68,8 @@ int	check_builtin(char *av)
 
 void	check_exit_status(t_path *path_list)
 {
-	if (str_is_num(path_list->path_and_cmd[1]) || !path_list->path_and_cmd[1])
+	if (ft_str_is_num(path_list->path_and_cmd[1])
+		|| !path_list->path_and_cmd[1])
 		return ;
 	else
 		ft_printf("exit: %s: numeric argument required\n",

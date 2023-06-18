@@ -6,14 +6,14 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 00:49:50 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/16 14:43:31 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/18 13:37:50 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
@@ -80,10 +80,7 @@ void				handle_here_doc(char *av, int fd[]);
 
 /* --- Utils Functions --- */
 
-void				free_matrix(char **matrix);
 char				*new_strjoin(char const *s1, char const *s2,
 						char const *s3);
-int					str_is_num(char *s);
-int					ft_str_error(char *s);
 
 #endif

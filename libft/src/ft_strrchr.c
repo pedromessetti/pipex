@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 15:20:56 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/30 14:07:19 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:00:08 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	const char *s = "Hello world porra!";
-// 	int c = 'o';
-
-// 	printf("string:%s:\n", s);
-// 	printf("char:%d:\n", c);
-// 	printf("first occurence:%s:\n", ft_strrchr(s, c));
-// }

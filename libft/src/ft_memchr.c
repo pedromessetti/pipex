@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 10:17:06 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:02:59 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:58:46 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	const void *s = "Hello World!";
-// 	int c = 32;
-
-// 	printf(":%s:\n", (const char *)s);
-// 	printf(":%c:\n", c);
-// 	printf(":%s:\n", (char *)ft_memchr(s, c, 13));
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:04:26 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:51:40 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:57:51 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	subs[i] = '\0';
 	return (subs);
 }
-
-// int	main(void)
-// {
-// 	char const *s = "Lorem ipsum doloresmain";
-// 	unsigned int start = 7;
-// 	size_t len = 10;
-// 	printf("String:%s:\n", s);
-// 	printf("Start index:%d:\n", start);
-// 	printf("Length:%zu:\n", len);
-// 	printf("Substring:%s:\n", ft_substr(s, start, len));
-// }

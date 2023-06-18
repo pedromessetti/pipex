@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:49:42 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 13:54:07 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:58:36 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,3 @@ char	*ft_itoa(int n)
 	}
 	return (s = ft_convert(s, len, li));
 }
-
-// int	main(void)
-// {
-// 	int n1 = 0;
-// 	int n2 = -1234;
-// 	int n3 = 1234;
-
-// 	printf("number (int):%i:\n", n1);
-// 	printf("number (str):%s:\n", ft_itoa(n1));
-// 	printf("number (int):%i:\n", n2);
-// 	printf("number (str):%s:\n", ft_itoa(n2));
-// 	printf("number (int):%i:\n", n3);
-// 	printf("number (str):%s:\n", ft_itoa(n3));
-// }

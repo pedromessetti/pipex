@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 19:30:24 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 14:40:40 by pmessett         ###   ########.fr       */
+/*   Created: 2023/04/16 09:30:01 by pmessett          #+#    #+#             */
+/*   Updated: 2023/04/16 09:50:08 by pmessett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*Allocates memory for a duplicate of s with malloc().
-
-Returns a pointer to a new string which
-is a duplicate of the string s.*/
-char	*ft_strdup(const char *s)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char	*dst;
-	int		i;
+	t_list	*new_lst;
+	t_list	*temp;
 
-	if (!s)
+	if (!lst)
 		return (NULL);
-	dst = malloc(ft_strlen(s) + 1);
-	if (!dst)
-		return (NULL);
-	i = -1;
-	while (s[++i])
-		dst[i] = s[i];
-	dst[i] = '\0';
-	return (dst);
+	new_lst = NULL;
+	while (lst)
+	{
+		temp = ft_lstnew(f(lst->content));
+		if (!temp)
+			ft_lstclear(&new_lst, del);
+		ft_lstadd_back(&new_lst, temp);
+		lst = lst->next;
+	}
+	return (new_lst);
 }
-
-// int main(void)
-// {
-// 	char *minha = "Hello World!";
-
-// 	printf(":%s:\n", ft_strdup(minha));
-// 	return (0);
-// }

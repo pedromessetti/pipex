@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:43:32 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:16:36 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/18 13:07:59 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 void	child_process(t_path *path_list, char **envp, int fd[])
 {

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/17 15:50:47 by pedro            ###   ########.fr       */
+/*   Created: 2023/04/16 07:16:19 by pmessett          #+#    #+#             */
+/*   Updated: 2023/06/18 10:51:15 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+t_list	*ft_lstnew(void *content)
 {
-	t_path	*path_list;
-	int		fd[2];
-	int		exit_status;
+	t_list	*new_node;
 
-	path_list = NULL;
-	check_ac(ac);
-	check_fd(fd, av, ac);
-	path_list = define_path(path_list, ac, av, envp);
-	exit_status = start_process(path_list, fd, envp, av);
-	free_path_list(&path_list);
-	unlink(".tmp");
-	return (exit_status);
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }

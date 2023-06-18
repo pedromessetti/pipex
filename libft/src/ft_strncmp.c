@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmessett <pmessett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 20:31:37 by pmessett          #+#    #+#             */
-/*   Updated: 2023/05/29 15:10:11 by pmessett         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:59:59 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	return (((unsigned char)s1[i]) - ((unsigned char)s2[i]));
 }
-
-// int	main(void)
-// {
-// 	printf("%d\n", ft_strncmp("test\200", "test\0", 6));
-// 	return (0);
-// }

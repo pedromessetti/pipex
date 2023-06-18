@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:16:46 by pmessett          #+#    #+#             */
-/*   Updated: 2023/06/16 14:41:04 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/18 15:38:51 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 /*Set and returns a array of possible paths by iterate into envp untill
 find the PATH variable and split the result by the ':'*/
@@ -48,7 +48,7 @@ t_path	*find_path(t_path *path_list, char **possible_paths, char *av,
 	i = -1;
 	while (possible_paths[++i])
 	{
-		tmp = new_strjoin(possible_paths[i], "/", path_and_cmd[0]);
+		tmp = ft_multi_strjoin("/", possible_paths[i], path_and_cmd[0], NULL);
 		if (!access(tmp, F_OK))
 			break ;
 		if (possible_paths[i + 1])
@@ -107,7 +107,7 @@ t_path	*define_path(t_path *path_list, int ac, char **av, char **envp)
 		i = 2;
 	while (av[++i] && i < ac - 1)
 	{
-		if (ft_str_error(av[i]))
+		if (ft_str_empty(av[i]))
 			path_list = handle_str_error(av, i, ac, path_list);
 		else
 			path_list = choose_handle(av[i], envp, path_list);

@@ -6,11 +6,11 @@
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 14:33:45 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/16 14:55:35 by pedro            ###   ########.fr       */
+/*   Updated: 2023/06/17 15:51:33 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../inc/pipex.h"
 
 int	is_here_doc(char *s)
 {

@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_matrix.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pedro <pedro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 00:49:42 by pedro             #+#    #+#             */
-/*   Updated: 2023/06/17 15:50:47 by pedro            ###   ########.fr       */
+/*   Created: 2023/06/18 13:13:58 by pedro             #+#    #+#             */
+/*   Updated: 2023/06/18 13:14:21 by pedro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **envp)
+/*Free the allocated memory for a bidimensional array*/
+void	free_matrix(char **matrix)
 {
-	t_path	*path_list;
-	int		fd[2];
-	int		exit_status;
+	int	i;
 
-	path_list = NULL;
-	check_ac(ac);
-	check_fd(fd, av, ac);
-	path_list = define_path(path_list, ac, av, envp);
-	exit_status = start_process(path_list, fd, envp, av);
-	free_path_list(&path_list);
-	unlink(".tmp");
-	return (exit_status);
+	i = -1;
+	if (!*matrix || !**matrix)
+		return ;
+	while (matrix[++i])
+		free(matrix[i]);
+	free(matrix);
 }
