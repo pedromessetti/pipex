@@ -11,7 +11,8 @@
 
 ## Description :clipboard:
 <p>
-This project is about handling pipes.
+
+Pipex is a command-line program designed to replicate the functionality of the Unix pipe operator `|`. It aims to implement a simplified version of the pipe mechanism used in Unix-based systems, allowing the user to redirect the output of one command as input to another command.
 
 For more information about the project check the [subject here](https://github.com/pedromessetti/pipex/blob/master/subject.pdf). The program was written following the rules described in the 42 Norme. To check the Norme [click here](https://github.com/42School/norminette/blob/master/pdf/en.norm.pdf).
 </p>
@@ -27,11 +28,14 @@ To use the program type in the command line:
 
 `./pipex input_file cmd1 cmd2 ... output_file`
 
-Type N numbers of shell commands and the program works as the following command line in bash:
+You can provide any number of shell commands, and the program will work as the following command line in bash:
 
 `< input_file cmd1 | cmd2 | ... > output_file`
 
-The program handles with absolute paths, multiple pipes, wrong commands, wrong flags, wrong paths and input files that doesn't exists or are directories. The program has to have unless 5 arguments to work properly.
+The program takes at least four arguments: an input file, two (or more) commands and an output file. It reads the content of the input file and feeds it as input to the following commands. The output of command1 is then passed as input to command2 and so forth. Finally, the output of the last command is written to the output file.
+
+The program handles absolute paths, multiple pipes, heredoc inputs, incorrect commands, flags, paths, and non-existing input files or directories.
+
 </p>
 
 ## Operation :wrench:
